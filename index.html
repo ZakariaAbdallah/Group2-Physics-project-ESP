@@ -1,0 +1,2680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Group 2: Electrostatic Precipitators | Physics Project</title>
+   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(145deg, #e9f5f0 0%, #d0e6df 100%);
+            color: #1a2a2f;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+
+        /* Header / Navigation */
+        .navbar {
+            background: #0b2b26;
+            color: white;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        .logo span {
+            color: #f4c542;
+        }
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.4rem 0.8rem;
+            border-radius: 40px;
+            transition: background 0.2s;
+        }
+        .nav-links a:hover {
+            background: #2e6b5e;
+        }
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Hero */
+        .hero {
+            background: #1f4e45;
+            color: white;
+            border-radius: 2rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .hero h1 {
+            font-size: 2.6rem;
+            margin-bottom: 0.5rem;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .group-badge {
+            background: #f4c542;
+            color: #1f3d38;
+            display: inline-block;
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            margin-top: 1rem;
+            font-weight: bold;
+        }
+
+        /* Cards & sections */
+        .card {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 1.8rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+        }
+        h2 {
+            color: #1f4e45;
+            border-left: 6px solid #f4c542;
+            padding-left: 1rem;
+            margin-bottom: 1.2rem;
+            font-size: 1.8rem;
+        }
+        h3 {
+            color: #2c5a50;
+            margin: 1rem 0 0.5rem 0;
+        }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        .info-box {
+            background: #faf9f0;
+            padding: 1rem;
+            border-radius: 1rem;
+            border-left: 4px solid #f4c542;
+        }
+        .equation {
+            background: #eef3f1;
+            font-family: monospace;
+            font-size: 1.2rem;
+            padding: 0.8rem;
+            border-radius: 16px;
+            text-align: center;
+            margin: 1rem 0;
+            font-weight: bold;
+        }
+        .simulation {
+            background: #1e2f2c;
+            color: #eee;
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            margin-top: 1rem;
+        }
+        canvas {
+            display: block;
+            background: #263f3a;
+            border-radius: 20px;
+            margin: 1rem auto;
+            box-shadow: 0 4px 12px black;
+            width: 100%;
+            height: auto;
+            cursor: pointer;
+        }
+        .btn {
+            background: #f4c542;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            font-weight: bold;
+            border-radius: 2rem;
+            cursor: pointer;
+            transition: 0.2s;
+            color: #1a2a2f;
+        }
+        .btn:hover {
+            background: #e0b03b;
+            transform: scale(0.98);
+        }
+        footer {
+            background: #0b2b26;
+            color: #b8ddd4;
+            text-align: center;
+            padding: 1.5rem;
+            border-radius: 2rem 2rem 0 0;
+            margin-top: 2rem;
+        }
+        .reference-list {
+            list-style: none;
+        }
+        .reference-list li {
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+        @media (max-width: 700px) {
+            .navbar {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            .container {
+                padding: 1rem;
+            }
+        }
+    
+    /* Tab content: hide all sections by default */
+.tab-content {
+    display: none;
+}
+.tab-content.active {
+    display: block;
+}
+/* Style for active tab button */
+.tab-btn {
+    background: transparent;
+    color: white;
+    border: none;
+    font-weight: 500;
+    padding: 0.4rem 0.8rem;
+    border-radius: 40px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 1rem;
+    transition: background 0.2s;
+}
+.tab-btn:hover {
+    background: #2e6b5e;
+}
+.tab-btn.active {
+    background: #f4c542;
+    color: #1a2a2f;
+}
+    
+    /* Cover Page - Professional & Dynamic */
+.cover-page {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, #001f3f, #003366, #0a4a7a);
+    background-size: 200% 200%;
+    animation: gradientShift 15s ease infinite;
+    z-index: 1000;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    overflow-y: auto;
+    font-family: 'Segoe UI', 'Poppins', 'Georgia', serif;
+    padding: 40px 20px;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 0%; }
+    50% { background-position: 100% 100%; }
+    100% { background-position: 0% 0%; }
+}
+
+/* Floating particles */
+    .cover-page::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(circle at 20% 40%, rgba(244,197,66,0.2) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    animation: floatParticles 20s linear infinite;
+}
+
+@keyframes floatParticles {
+    0% { transform: translateY(0px); opacity: 0.3; }
+    50% { transform: translateY(-30px); opacity: 0.7; }
+    100% { transform: translateY(0px); opacity: 0.3; }
+}
+
+.cover-content {
+    max-width: 900px;
+    width: 90%;
+    padding: 2.5rem;
+    background: rgba(10, 10, 25, 0.75);
+    backdrop-filter: blur(16px);
+    border-radius: 2rem;
+    border: 1px solid rgba(255, 215, 0, 0.5);
+    box-shadow: 0 30px 50px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,215,0,0.2) inset;
+    margin: 0 auto;
+    color: #ffffff;
+    /* removed max-height and overflow */
+}
+
+.cover-content:hover {
+    transform: scale(1.01);
+    box-shadow: 0 50px 70px rgba(0,0,0,0.6), 0 0 0 3px rgba(244,197,66,0.2) inset;
+}
+
+.cover-content h1 {
+    font-size: 3.8rem;
+    font-weight: 800;
+    letter-spacing: -1.5px;
+    background: linear-gradient(135deg, #ffe6a3, #f4c542, #e6b83e);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    margin-bottom: 0.75rem;
+    animation: titleGlow 3s infinite alternate;
+}
+
+@keyframes titleGlow {
+    0% { filter: drop-shadow(0 0 2px rgba(244,197,66,0.3)); }
+    100% { filter: drop-shadow(0 0 12px rgba(244,197,66,0.6)); }
+}
+
+.cover-content h2 {
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: #f0f9f5;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid #f4c542;
+    display: inline-block;
+    padding-bottom: 8px;
+    letter-spacing: 1px;
+}
+    
+
+.project-details {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    margin: 2rem 0 1.5rem;
+}
+
+.info-block {
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    padding: 1rem 1.2rem;
+    border-radius: 1.2rem;
+    min-width: 180px;
+    border-left: 3px solid #f4c542;
+    transition: all 0.2s;
+}
+.info-block:hover {
+    background: rgba(244,197,66,0.15);
+    transform: translateY(-3px);
+}
+
+.info-block strong {
+    color: #f4c542;
+    display: block;
+    font-size: 0.9rem;
+    letter-spacing: 1.5px;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+}
+
+.info-block p {
+    font-size: 1rem;
+    margin: 0;
+    font-weight: 500;
+}
+
+.group-section {
+    background: rgba(0,0,0,0.4);
+    border-radius: 1.8rem;
+    padding: 1.2rem 1.5rem;
+    margin: 1.5rem 0;
+    text-align: center;
+}
+
+.group-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.8rem;
+    margin: 1rem 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.group-list li {
+    background: linear-gradient(135deg, rgba(244,197,66,0.2), rgba(244,197,66,0.05));
+    padding: 0.5rem 1.2rem;
+    border-radius: 60px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #f4e2b0;
+    border: 1px solid rgba(244,197,66,0.4);
+    backdrop-filter: blur(4px);
+    transition: all 0.2s;
+}
+.group-list li:hover {
+    background: rgba(244,197,66,0.3);
+    transform: scale(1.02);
+}
+
+.date-submit {
+    margin: 1rem auto;
+    font-size: 1rem;
+    background: linear-gradient(90deg, rgba(244,197,66,0.2), rgba(244,197,66,0.05));
+    display: inline-block;
+    padding: 0.5rem 2rem;
+    border-radius: 60px;
+    font-weight: 500;
+    border: 1px solid rgba(244,197,66,0.3);
+}
+
+.teacher-name {
+    margin: 0.5rem 0 1rem;
+    font-style: italic;
+    font-size: 1rem;
+    color: #d4f0e8;
+}
+
+.enter-btn {
+    background: linear-gradient(135deg, #f4c542, #d99f2b);
+    color: #0a231f;
+    border: none;
+    padding: 1rem 2.5rem;
+    font-size: 1.3rem;
+    font-weight: bold;
+    border-radius: 60px;
+    cursor: pointer;
+    margin: 1.5rem 0 0.5rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    font-family: inherit;
+    letter-spacing: 1.5px;
+    position: relative;
+    overflow: hidden;
+}
+.enter-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: left 0.5s;
+}
+.enter-btn:hover::before {
+    left: 100%;
+}
+.enter-btn:hover {
+    background: linear-gradient(135deg, #ffda6e, #e5a822);
+    transform: scale(1.03);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.4);
+}
+
+.hide-cover {
+    opacity: 0;
+    visibility: hidden;
+}
+    
+    .info-block p {
+    color: #ffffff;
+}
+    
+    .date-submit, .teacher-name {
+    color: #ffffff;
+}
+    /* Table of Contents styles */
+.toc-jump {
+    background: #1f4e45;
+    color: white;
+    border: none;
+    padding: 4px 12px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: background 0.2s;
+}
+.toc-jump:hover {
+    background: #f4c542;
+    color: #1a2a2f;
+}
+table {
+    background: rgba(255,255,255,0.5);
+    border-radius: 1rem;
+    overflow: hidden;
+}
+th {
+    background: #1f4e45;
+    color: white;
+}
+    
+    /* Physics card enhancements */
+.physics-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    background: #faf9f0;
+    border-radius: 1rem;
+    overflow: hidden;
+}
+.physics-table th, .physics-table td {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+.physics-table th {
+    background: #1f4e45;
+    color: white;
+}
+.example-box {
+    background: #f9f6e8;
+    padding: 1rem;
+    border-radius: 1rem;
+    margin: 1rem 0;
+    border-left: 5px solid #f4c542;
+}
+.diagram-placeholder {
+    background: #eef3f1;
+    border-radius: 1rem;
+    padding: 1rem;
+    margin: 1rem 0;
+    text-align: center;
+    border: 1px solid #1f4e45;
+}
+.equation {
+    text-align: center;
+    margin: 1rem 0;
+    font-size: 1.1rem;
+    background: #eef3f1;
+    padding: 0.8rem;
+    border-radius: 16px;
+    overflow-x: auto;
+}
+    
+    </style>
+</head>
+<body>
+  <!-- Cover Page - Beautiful & Professional -->
+<div id="coverPage" class="cover-page">
+    <div class="cover-content">
+        <h1>⚡ Electrostatic Precipitators</h1>
+        <div style="margin: -10px 0 10px;">
+    <span style="font-size: 2rem; filter: drop-shadow(0 0 4px #f4c542);">⚡↯⚡</span>
+</div>
+        <h2>The Use of Electric Fields in Technology</h2>
+        
+        <div class="project-details">
+            <div class="info-block">
+                <strong>📌 GROUP 2</strong>
+                <p>Physics Year 2<br>Tamale Islamic SHS</p>
+            </div>
+            <div class="info-block">
+                <strong>📅 SUBMISSION</strong>
+                <p>Semester I, 2026<br>First Week of Re-opening</p>
+            </div>
+            <div class="info-block">
+                <strong>👨‍🏫 SUPERVISOR</strong>
+                <p>Mr. Abdul Haqq Ibn Tuahir<br>Science Department</p>
+            </div>
+            <div class="info-block">
+                <strong>Class</strong>
+                <p>Science 2B</p>
+            </div>
+        </div>
+
+        <div class="group-section">
+            <strong style="color:#f4c542; font-size:1rem;">👥 GROUP MEMBERS</strong>
+            <ul class="group-list">
+                <li>Zakaria Abdallah</li>
+                <li>Haruna Saida</li>
+                <li>Yakubu Mariam</li>
+                <li>Ibrahim Takiya</li>
+                <li>Abdul-Razak Abdul-Shakun</li>
+            </ul>
+        </div>
+
+        <div class="date-submit">
+            📆 Date of Submission: _______________ / _______________ / 2026
+        </div>
+        <div class="teacher-name">
+            ✍️ Teacher’s Signature: _________________________
+        </div>
+
+        <button id="enterBtn" class="enter-btn">🔬 VIEW TABLE OF CONTENTS →</button>
+    </div>
+</div>
+    
+    <div class="navbar">
+        <div class="logo">🌿 Group 2 <span>| Electrostatic Precipitator</span></div>
+        <div class="nav-links">
+    <button class="tab-btn" data-tab="contents">📑 Contents</button>
+    <button class="tab-btn active" data-tab="dashboard">📊 Dashboard</button>
+    <button class="tab-btn" data-tab="overview">📖 Introduction</button>
+    <button class="tab-btn" data-tab="tech-overview">⚙️ Tech Overview</button>
+    <button class="tab-btn" data-tab="physics">Physics</button>
+    <button class="tab-btn" data-tab="applications">Uses</button>
+    <button class="tab-btn" data-tab="impact">Impact</button>
+    <button class="tab-btn" data-tab="simulation">Interactive</button>
+    <button class="tab-btn" data-tab="references">Sources</button>
+    <button id="coverBtn" class="tab-btn" style="background: #f4c54220; border: 1px solid #f4c542;">🏠 Cover</button>
+</div>
+    </div>
+
+    <div class="container">
+        <div class="hero">
+            <h1>⚡ Electrostatic Precipitators (ESP)</h1>
+            <p>Using electric fields to remove harmful particles from industrial emissions — cleaner air, smarter physics.</p>
+            <div class="group-badge">📍 Group 2 • Tamale Islamic Science SHS • Physics Year 2</div>
+        </div>
+
+        <!-- DASHBOARD SECTION (shown by default) -->
+<div id="dashboard" class="card tab-content active">
+    <h2>📊 Project Dashboard</h2>
+    <p style="margin-bottom: 1.5rem;">Welcome to Group 2's interactive project on <strong>Electrostatic Precipitators</strong>. Use the buttons below to explore each section.</p>
+    
+    <div class="grid-2">
+        <div class="info-box" style="cursor: pointer;" onclick="switchToTab('overview')">
+            <h3>🔍 Technology Overview</h3>
+            <p>What is an ESP? How does it work? History and basic principles.</p>
+        </div>
+        <div class="info-box" style="cursor: pointer;" onclick="switchToTab('physics')">
+            <h3>⚛️ Physics Principles</h3>
+            <p>Coulomb's law, electric field strength, field lines, corona discharge.</p>
+        </div>
+        <div class="info-box" style="cursor: pointer;" onclick="switchToTab('applications')">
+            <h3>🏭 Real‑World Uses</h3>
+            <p>Power plants, cement factories, steel mills, air purifiers.</p>
+        </div>
+        <div class="info-box" style="cursor: pointer;" onclick="switchToTab('impact')">
+            <h3>🌍 Societal Impact</h3>
+            <p>Benefits, challenges, sustainability, and ethics.</p>
+        </div>
+        <div class="info-box" style="cursor: pointer;" onclick="switchToTab('simulation')">
+            <h3>🧪 Interactive Simulation</h3>
+            <p>See charged particles get collected – click and watch!</p>
+        </div>
+        <div class="info-box" style="cursor: pointer;" onclick="switchToTab('references')">
+            <h3>📚 Sources & References</h3>
+            <p>Credible sources and citations for your report.</p>
+        </div>
+    </div>
+    
+    <div style="background: #eef3f1; border-radius: 1rem; padding: 1rem; margin-top: 1.5rem; text-align: center;">
+        <p><strong>⚡ Key fact:</strong> Electrostatic precipitators can remove over 99% of particulate matter from industrial exhaust, preventing millions of tons of pollution yearly.</p>
+    </div>
+</div>
+        
+        <!-- Introduction Section -->
+        <div id="overview" class="card tab-content">
+         <h2>📖 Introduction</h2>
+
+<div style="margin: 1.5rem 0; padding: 1rem 1.5rem; background: #f9f6e8; border-left: 5px solid #f4c542; border-radius: 1rem;">
+    <p style="margin: 0; font-style: italic; font-size: 1.05rem;">🌍 Every year, industrial activities release millions of tonnes of particulate matter into the atmosphere, contributing to respiratory diseases and environmental degradation across the globe. Yet, hidden within this pressing environmental crisis lies an elegant solution rooted in a seemingly simple branch of physics: <strong>electric fields</strong>.</p>
+</div>
+
+<p><strong>How can invisible lines of force, which we study in a classroom, capture tonnes of harmful dust before they escape into the air we breathe?</strong> The answer is the <strong>electrostatic precipitator</strong> – a technology that exemplifies physics in service of sustainability.</p>
+
+<h3 style="color: #1f4e45; margin-top: 1.8rem; margin-bottom: 0.8rem; border-left: 3px solid #f4c542; padding-left: 0.8rem;">🔧 What is an Electrostatic Precipitator?</h3>
+
+<p>An <strong>electrostatic precipitator (ESP)</strong> is a device used in industrial chimneys and power plants to remove fine particles, such as fly ash and dust, from exhaust gases. Invented in the early twentieth century by chemical engineer Frederick Cottrell, the ESP has since become a cornerstone of air pollution control. It works by charging particles as they pass through an electric field, then attracting them to oppositely charged collection plates. This mechanical process allows industries to meet emission standards without significantly hindering production, thereby reconciling economic activity with environmental responsibility.</p>
+
+<h3 style="color: #1f4e45; margin-top: 1.8rem; margin-bottom: 0.8rem; border-left: 3px solid #f4c542; padding-left: 0.8rem;">⚛️ The Physics Behind the Technology</h3>
+
+<p>The physics underlying this technology is drawn directly from <strong>electrostatics</strong>, a core topic in the Year 2 syllabus (Section 3). <strong>Electric field lines</strong>, which represent the direction of force on a positive test charge, are deliberately shaped within the precipitator using a high‑voltage electrode and grounded plates. A phenomenon known as <strong>corona discharge</strong> – ionisation of the surrounding gas – creates a dense region of ions that attach to passing dust particles. The resulting <strong>electric field strength</strong> determines how efficiently these charged particles are driven towards the collection plates. Thus, <strong>Coulomb’s law</strong> and the concept of field uniformity are not abstract principles but practical design parameters that engineers must optimise.</p>
+
+<h3 style="color: #1f4e45; margin-top: 1.8rem; margin-bottom: 0.8rem; border-left: 3px solid #f4c542; padding-left: 0.8rem;">📝 Purpose of This Report</h3>
+
+<p>This report aims to investigate the mechanical function of electrostatic precipitators, the application of Coulomb’s law in their operation, and their overall impact on environmental sustainability. By examining the roles of ionisation, corona discharge, and collection plates, the report will clarify how fundamental electrostatic principles translate into an effective pollution‑control system. Furthermore, it will assess the broader implications of this technology for industrial practice and public health.</p>
+
+<div style="margin: 1.8rem 0 1rem 0; padding: 1rem 1.5rem; background: #eef3f1; border-radius: 1rem; border-left: 5px solid #1f4e45;">
+    <p style="margin: 0; font-weight: 500;">📌 <strong>Thesis Statement</strong><br>
+    It is the central argument of this report that the application of electric fields in electrostatic precipitators is an indispensable innovation for balancing industrial growth with public health and environmental safety. Without this technology, the particulate emissions from cement works, steel mills and coal‑fired power stations would render modern industrialisation ecologically untenable. By understanding how electric fields can both move and trap matter, we appreciate that physics does not merely describe the natural world – it offers tangible, life‑saving solutions to the most urgent challenges of our time.</p>
+</div>
+        </div>
+        <!-- Technology Overview Card -->
+<div id="tech-overview" class="card tab-content">
+    <h2>🏭 Technology Overview – The Electrostatic Precipitator (ESP)</h2>
+
+   <h3>4.1 Technical Definition & Purpose</h3>
+<div style="background: #eef3f1; border-left: 5px solid #f4c542; padding: 1rem; border-radius: 1rem; margin-bottom: 1rem;">
+    <p style="margin: 0;"><strong>📌 In simple terms:</strong> An ESP uses electric forces to grab dust particles – even those 100 times smaller than a human hair – from factory smoke. It works like a super‑powered static electricity cleaner.</p>
+</div>
+<p>An <strong>Electrostatic Precipitator (ESP)</strong> is a highly efficient, sub‑micron particle collection system designed to remove suspended particulates from industrial exhaust gases using the principle of <strong>electrostatic attraction</strong>. Unlike mechanical filters that physically obstruct particles, the ESP applies an electric field to charge and subsequently precipitate matter as small as 0.01 micrometres. Its primary necessity lies in large‑scale industrial abatement, specifically the removal of <strong>fly ash</strong> from coal combustion, <strong>cement dust</strong> from kilns, and toxic metallic particulates from chemical processing. By achieving collection efficiencies often exceeding 99.9%, the ESP prevents millions of tonnes of atmospheric pollutants from entering the biosphere annually.</p>
+
+    <h3>4.2 Evolution of the Technology: From Mechanical Filtration to Electrostatic Separation</h3>
+<div style="display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;">
+    <div style="flex: 1; background: #1f4e45; color: white; padding: 0.8rem; border-radius: 1rem; text-align: center;">
+        <span style="font-size: 1.5rem;">⏳</span><br>Before 1900<br><strong>Cyclones & fabric filters</strong><br>(ineffective for fine dust)
+    </div>
+    <div style="flex: 1; background: #f4c542; color: #1a2a2f; padding: 0.8rem; border-radius: 1rem; text-align: center;">
+        <span style="font-size: 1.5rem;">⚡</span><br>1907<br><strong>Frederick Cottrell’s patent</strong><br>First practical ESP
+    </div>
+    <div style="flex: 1; background: #1f4e45; color: white; padding: 0.8rem; border-radius: 1rem; text-align: center;">
+        <span style="font-size: 1.5rem;">🌍</span><br>1912 onward<br><strong>Global adoption</strong><br>Smelters, cement plants, power stations
+    </div>
+</div>
+<p>Prior to the twentieth century, industrial pollution control relied on crude mechanical methods—cyclones and fabric filters—which proved inadequate for fine particulates. The pivotal shift occurred in <strong>1907 when American chemist Frederick Cottrell</strong> patented the first practical ESP. Cottrell’s genius was to translate theoretical electrostatics—specifically the behaviour of ions in a non‑uniform field—into a working industrial device capable of treating large gas volumes at high temperatures. His patent served as the critical bridge between abstract physics (<strong>Coulomb’s law, dielectric breakdown</strong>) and tangible environmental engineering. By 1912, ESPs were already suppressing noxious smokes from smelters and cement plants, laying the foundation for modern air quality regulations.</p>
+
+<h3>4.3 Detailed Mechanical & Electrical Architecture</h3>
+
+<div style="background: #1e2f2c; border-radius: 1rem; padding: 1rem; margin: 1rem 0; text-align: center;">
+    <p style="color: white; font-weight: bold; margin-bottom: 0.5rem;">📐 Figure 1: Cross‑section of a plate‑type Electrostatic Precipitator</p>
+    <canvas id="espCrossSection" width="700" height="350" style="width:100%; max-width:700px; height:auto; background: #263f3a; border-radius: 16px; display: block; margin: 0 auto;"></canvas>
+    <p style="color: #ddd; font-size: 0.85rem; margin-top: 0.5rem;">[Gas flow → | Discharge wires (−) | Collecting plates (+) | Dust falls into hoppers]</p>
+</div>
+
+<script>
+    (function drawESPDiagram() {
+        const canvas = document.getElementById('espCrossSection');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        const w = canvas.width = 700;
+        const h = canvas.height = 350;
+        
+        // Background
+        ctx.fillStyle = '#1f3d38';
+        ctx.fillRect(0, 0, w, h);
+        
+        // Draw collecting plates (4 vertical plates)
+        const plateX = [120, 240, 460, 580];
+        const plateWidth = 16;
+        const plateTop = 70;
+        const plateBottom = 270;
+        
+        ctx.fillStyle = '#f4c542';
+        plateX.forEach(x => {
+            ctx.fillRect(x - plateWidth/2, plateTop, plateWidth, plateBottom - plateTop);
+        });
+        
+        // Draw discharge wires between plates
+        const wireX = [60, 180, 350, 520, 640];
+        ctx.beginPath();
+        ctx.strokeStyle = '#aaffdd';
+        ctx.lineWidth = 2;
+        wireX.forEach(x => {
+            ctx.beginPath();
+            ctx.moveTo(x, plateTop);
+            ctx.lineTo(x, plateBottom);
+            ctx.stroke();
+            // small circle at top to represent corona
+            ctx.beginPath();
+            ctx.arc(x, plateTop - 3, 4, 0, 2*Math.PI);
+            ctx.fillStyle = '#b0f0e0';
+            ctx.fill();
+        });
+        
+        // Labels
+        ctx.font = '12px "Segoe UI"';
+        ctx.fillStyle = '#ffe6cc';
+        ctx.fillText('Dirty gas in →', 20, 50);
+        ctx.fillText('→ Clean gas out', w-100, 50);
+        
+        // Hoppers (triangles at bottom)
+        ctx.fillStyle = '#8b9a8b';
+        for (let i = 0; i < plateX.length+1; i++) {
+            const x = (i === 0) ? 60 : (i === plateX.length) ? w-60 : plateX[i-1] + 40;
+            ctx.beginPath();
+            ctx.moveTo(x-30, plateBottom);
+            ctx.lineTo(x, plateBottom+30);
+            ctx.lineTo(x+30, plateBottom);
+            ctx.fill();
+        }
+        ctx.fillStyle = '#ddd';
+        ctx.fillText('Hoppers', w/2-30, plateBottom+20);
+        
+        // Particle paths (dotted lines from inlet to plates)
+        ctx.setLineDash([4, 6]);
+        ctx.beginPath();
+        ctx.moveTo(50, 150);
+        ctx.lineTo(112, 150);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(50, 200);
+        ctx.lineTo(112, 200);
+        ctx.stroke();
+        ctx.setLineDash([]);
+        
+        // Labels on plates
+        ctx.fillStyle = '#f4c542';
+        ctx.font = 'bold 10px monospace';
+        ctx.fillText('(+)', plateX[0]-10, plateTop+20);
+        ctx.fillText('(+)', plateX[3]+5, plateTop+20);
+        ctx.fillStyle = '#aaffdd';
+        ctx.fillText('(−)', wireX[2]+5, plateTop+20);
+    })();
+</script>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin: 1.5rem 0;">
+    <div style="background: #faf9f0; padding: 1rem; border-radius: 1rem; border-top: 4px solid #f4c542;">
+        <p style="font-weight: bold; margin-bottom: 0.5rem;">⚡ The Discharge System</p>
+        <p>At the core of the ESP lies the discharge system—typically an array of fine‑diameter wires (cathodes) suspended along the gas flow path. These wires are maintained at a high negative direct current voltage (<strong>30–100 kV</strong>). Their small radius of curvature creates an intensely non‑uniform electric field, inducing a phenomenon called <strong>corona discharge</strong> without causing complete dielectric breakdown of the gas. The corona generates a dense region of energetic ions immediately surrounding each wire.</p>
+    </div>
+    <div style="background: #faf9f0; padding: 1rem; border-radius: 1rem; border-top: 4px solid #f4c542;">
+        <p style="font-weight: bold; margin-bottom: 0.5rem;">🛡️ The Collection Interface</p>
+        <p>Positioned parallel to the discharge wires are large, grounded metal plates (anodes), known as collecting plates. These plates provide the oppositely charged surface toward which ionised particles migrate. The physics of particle adhesion involves a combination of electrostatic image forces and van der Waals interactions, ensuring that precipitated dust remains adhered until mechanically removed.</p>
+    </div>
+    <div style="background: #faf9f0; padding: 1rem; border-radius: 1rem; border-top: 4px solid #f4c542;">
+        <p style="font-weight: bold; margin-bottom: 0.5rem;">🔌 Power Supply</p>
+        <p>High‑Voltage Transformer‑Rectifier (T‑R) sets convert standard AC mains power to a pulsating or smooth DC voltage of the required magnitude. Modern systems incorporate automatic voltage control to maintain the corona just below spark‑over threshold, optimising precipitation rate irrespective of changing gas conditions.</p>
+    </div>
+</div>
+
+<h3>4.4 Operational Phase Analysis</h3>
+
+<div style="background: #1e2f2c; border-radius: 1rem; padding: 1rem; margin: 1rem 0; text-align: center;">
+    <p style="color: white; font-weight: bold; margin-bottom: 0.5rem;">⚡ Figure 2: Corona discharge from a wire electrode – electron avalanche and ion distribution</p>
+    <canvas id="coronaDiagram" width="600" height="300" style="width:100%; max-width:600px; height:auto; background: #001f1f; border-radius: 16px; display: block; margin: 0 auto;"></canvas>
+    <p style="color: #ddd; font-size: 0.85rem; margin-top: 0.5rem;">[Negative wire electrode | Glowing corona sheath | Electron avalanche paths | Positive ions drift to negative wire, negative ions to positive plate]</p>
+</div>
+
+<script>
+    (function drawCorona() {
+        const canvas = document.getElementById('coronaDiagram');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        const w = canvas.width = 600;
+        const h = canvas.height = 300;
+        
+        // Background
+        ctx.fillStyle = '#072b24';
+        ctx.fillRect(0, 0, w, h);
+        
+        // Draw collecting plate (right side)
+        const plateX = w - 40;
+        ctx.fillStyle = '#f4c542';
+        ctx.fillRect(plateX, 40, 12, h-80);
+        ctx.fillStyle = '#fff7cc';
+        ctx.font = 'bold 12px monospace';
+        ctx.fillText('(+) COLLECTOR PLATE', plateX-80, 35);
+        
+        // Discharge wire (left side)
+        const wireX = 80;
+        ctx.beginPath();
+        ctx.moveTo(wireX, 50);
+        ctx.lineTo(wireX, h-50);
+        ctx.lineWidth = 3;
+        ctx.strokeStyle = '#aaffdd';
+        ctx.stroke();
+        ctx.fillStyle = '#aaffdd';
+        ctx.beginPath();
+        ctx.arc(wireX, h/2, 6, 0, 2*Math.PI);
+        ctx.fill();
+        ctx.fillStyle = '#ccffdd';
+        ctx.font = 'bold 12px';
+        ctx.fillText('(−) DISCHARGE WIRE', wireX-50, h/2-10);
+        
+        // Corona glow (gradient circle)
+        const grd = ctx.createRadialGradient(wireX, h/2, 5, wireX, h/2, 35);
+        grd.addColorStop(0, 'rgba(255,220,100,0.8)');
+        grd.addColorStop(1, 'rgba(255,100,50,0)');
+        ctx.fillStyle = grd;
+        ctx.beginPath();
+        ctx.arc(wireX, h/2, 40, 0, 2*Math.PI);
+        ctx.fill();
+        
+        // Electron avalanche (zigzag sparks)
+        ctx.beginPath();
+        ctx.moveTo(wireX+15, h/2-20);
+        ctx.lineTo(wireX+35, h/2-5);
+        ctx.lineTo(wireX+50, h/2-25);
+        ctx.lineTo(wireX+70, h/2-10);
+        ctx.strokeStyle = '#ffaa44';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+        
+        ctx.beginPath();
+        ctx.moveTo(wireX+15, h/2+10);
+        ctx.lineTo(wireX+30, h/2+25);
+        ctx.lineTo(wireX+55, h/2+15);
+        ctx.lineTo(wireX+75, h/2+30);
+        ctx.stroke();
+        
+        // Ion labels
+        ctx.fillStyle = '#ffffaa';
+        ctx.font = '10px monospace';
+        ctx.fillText('e⁻ avalanche', wireX+25, h/2-25);
+        ctx.fillText('e⁻ avalanche', wireX+25, h/2+35);
+        
+        // Negative ion drift arrows
+        for (let y = h/2-60; y < h/2+60; y+=40) {
+            ctx.beginPath();
+            ctx.moveTo(wireX+25, y);
+            ctx.lineTo(plateX-15, y);
+            ctx.strokeStyle = '#88ccff';
+            ctx.setLineDash([5, 5]);
+            ctx.stroke();
+            ctx.fillStyle = '#88ccff';
+            ctx.fillText('➡', plateX-25, y+3);
+        }
+        ctx.setLineDash([]);
+        
+        ctx.fillStyle = '#ccddff';
+        ctx.fillText('Negative ions migrate to positive plate', 200, h-15);
+        ctx.fillStyle = '#ffccaa';
+        ctx.fillText('Positive ions drift to negative wire', 200, h-35);
+    })();
+</script>
+
+<div style="margin: 1.5rem 0;">
+    <div style="display: flex; gap: 0.8rem; align-items: flex-start; margin-bottom: 1.2rem;">
+        <div style="background: #f4c542; color: #1a2a2f; font-weight: bold; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 50%; flex-shrink: 0;">1</div>
+        <div><strong style="font-size: 1.1rem;">Gas Ionization</strong><br>As the applied voltage exceeds the corona onset threshold, free electrons accelerated by the intense field collide with neutral gas molecules (primarily oxygen and nitrogen). These collisions shatter the molecules, liberating additional electrons and creating a cascade known as an <strong>electron avalanche</strong>. This process yields a plasma‑like region rich in positive ions and free electrons. Electrons rapidly attach to electronegative gas species (especially oxygen), forming stable negative ions.</div>
+    </div>
+    <div style="display: flex; gap: 0.8rem; align-items: flex-start; margin-bottom: 1.2rem;">
+        <div style="background: #f4c542; color: #1a2a2f; font-weight: bold; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 50%; flex-shrink: 0;">2</div>
+        <div><strong style="font-size: 1.1rem;">Particulate Charging</strong><br>Dust particles entering the corona region undergo two simultaneous charging mechanisms. <strong>Field charging</strong> occurs when ions follow electric field lines and strike the particle’s surface. <strong>Diffusion charging</strong> dominates for sub‑micron particles, arising from random thermal motion of ions. The net charge acquired depends critically on <strong>particle resistivity</strong>—a material property that influences how readily a particle accepts and retains charge. Optimal resistivity ranges between 10⁸ and 10¹⁰ ohm‑cm; outside this window, performance degrades.</div>
+    </div>
+    <div style="display: flex; gap: 0.8rem; align-items: flex-start; margin-bottom: 1.2rem;">
+        <div style="background: #f4c542; color: #1a2a2f; font-weight: bold; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 50%; flex-shrink: 0;">3</div>
+        <div><strong style="font-size: 1.1rem;">Migration & Precipitation</strong><br>Once charged, each particle experiences a <strong>Coulomb force</strong> directed toward the grounded collecting plates. The particle migrates across the electric field lines, its terminal velocity determined by the balance between electrostatic force and viscous drag (<strong>Stokes’ law</strong>). This migration velocity, typically 0.05–0.20 m/s, governs the required plate area via the <strong>Deutsch‑Anderson equation</strong>.</div>
+    </div>
+    <div style="display: flex; gap: 0.8rem; align-items: flex-start; margin-bottom: 1.2rem;">
+        <div style="background: #f4c542; color: #1a2a2f; font-weight: bold; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 50%; flex-shrink: 0;">4</div>
+        <div><strong style="font-size: 1.1rem;">Rapping & Cleaning Cycles</strong><br>Over time, accumulated dust layers on the collecting plates reduce electric field strength and risk <strong>back‑corona discharge</strong>. To prevent this, an automated rapping or hammering system delivers controlled mechanical impulses to the plates. The resulting vibration releases the precipitated layer, allowing dust to fall by gravity into tapered hoppers for disposal or recovery. Rapping cycles are carefully timed to minimise re‑entrainment of particles into the gas stream.</div>
+    </div>
+</div>
+
+    <h3>4.5 Global Industrial Applications</h3>
+    <p><strong>Coal‑Fired Power Plants:</strong> The largest application of ESPs is in utility boilers burning pulverised coal. Fly ash—consisting of silicon, aluminium, and iron oxides—exhibits moderate resistivity at typical flue gas temperatures (130–180°C). ESPs routinely achieve 99.5–99.9% collection efficiency, transforming a visible plume of grey smoke into clear stack gas.</p>
+    <p><strong>Cement Kilns:</strong> Cement production generates alkaline dust with high resistivity due to elevated calcium oxide content. ESPs in this sector require careful gas conditioning (e.g., moisture or sulphur trioxide injection) to lower resistivity into the optimal range. Modern cement plants use ESPs as the primary abatement device after preheaters and clinker coolers.</p>
+    <p><strong>Chemical Processing Plants:</strong> In facilities producing sulphuric acid, fertilisers, or carbon black, ESPs recover valuable product while preventing toxic releases. Here, corona parameters must be adjusted for corrosive or explosive atmospheres, often using specialised electrode geometries and materials such as lead or stainless steel.</p>
+
+    <h3>4.6 Summary of Performance Parameters</h3>
+    <table style="width: 100%; border-collapse: collapse; background: white; border-radius: 1rem; overflow: hidden; margin: 1rem 0;">
+        <thead>
+            <tr style="background: #1f4e45; color: white;">
+                <th style="padding: 10px; text-align: left;">Parameter</th>
+                <th style="padding: 10px; text-align: left;">Typical Range</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 8px;">Collection efficiency</td><td style="padding: 8px;">99.0 – 99.99%</td></tr>
+            <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 8px;">Particle size captured</td><td style="padding: 8px;">0.01 – 100 µm</td></tr>
+            <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 8px;">Gas velocity</td><td style="padding: 8px;">0.5 – 2.0 m/s</td></tr>
+            <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 8px;">Specific collection area (SCA)</td><td style="padding: 8px;">30 – 150 m²/(m³/s)</td></tr>
+            <tr><td style="padding: 8px;">Power consumption</td><td style="padding: 8px;">0.2 – 1.0 kW per 1000 m³/min</td></tr>
+        </tbody>
+    </table>
+
+    <p>In summary, the ESP represents a mature yet continually refined application of electrostatics to environmental protection. Its superiority over mechanical filtration for high‑temperature, high‑volume, fine‑particle streams has cemented its role as the workhorse of industrial air pollution control worldwide.</p>
+</div>
+
+        <!-- Physics Principles (core) -->
+        <div id="physics" class="card tab-content">
+    <h2>⚛️ Physics Principles of Electrostatic Precipitators</h2>
+
+    <!-- 5.1 Introduction -->
+    <h3>5.1 Introduction: From Classroom Electrostatics to Industrial Filtration</h3>
+    <p>In the typical secondary school physics laboratory, electrostatics is demonstrated with modest experiments: a rubbed polythene rod attracting small pieces of paper, a gold‑leaf electroscope responding to a charged comb, or the crackle of a Van de Graaff generator. These phenomena – the invisible forces between charges at rest – are not mere curiosities. They are the same physical laws that, when scaled and engineered, remove millions of tonnes of hazardous dust, fly ash, and particulate matter from industrial flue gases each year. The electrostatic precipitator (ESP) is arguably the most successful large‑scale application of Coulomb’s law and electric field theory, transforming a classroom observation into a global environmental protection technology.</p>
+    <p>The underlying principle is deceptively simple: impart a net electric charge to suspended particles, then drive them toward oppositely charged collection plates using a strong electric field. Yet the practical realisation demands a deep understanding of field non‑uniformity, dielectric breakdown of gases, ion mobility, and viscous drag – all topics anchored firmly in WAEC Year 2 Section 3 (Electrostatics). This chapter dissects each physical principle in the order they act inside an ESP: from the creation of a corona discharge (dielectric breakdown), to the charging of particles (ion attachment), to the migration under electrostatic force, and finally to the collection by Coulombic attraction. By the end, the reader will appreciate how the abstract equations \( F = k \frac{q_1 q_2}{r^2} \) and \( E = V/d \) become the design backbone of precipitators that achieve >99% collection efficiency.</p>
+
+    <!-- 5.2 Theoretical Framework -->
+    <h3>5.2 Theoretical Framework – Coulomb’s Law and the Attraction Mechanism</h3>
+
+    <h4>5.2.1 Statement of Coulomb’s Law</h4>
+    <p>Coulomb’s law quantifies the electrostatic force \( \mathbf{F} \) between two point charges \( q_1 \) and \( q_2 \) separated by distance \( r \) in a medium of permittivity \( \varepsilon = \varepsilon_r \varepsilon_0 \):</p>
+    <div class="equation">\[ \mathbf{F} = \frac{1}{4\pi\varepsilon} \frac{q_1 q_2}{r^2} \, \hat{\mathbf{r}} \]</div>
+    <p>In vacuum (\( \varepsilon_r = 1 \)), the constant \( k = 1/(4\pi\varepsilon_0) = 8.99 \times 10^9 \, \text{N·m}^2/\text{C}^2 \). The direction is along the line joining the charges: like charges repel (\( q_1 q_2 > 0 \), force away), unlike charges attract (\( q_1 q_2 < 0 \), force toward each other).</p>
+
+    <h4>5.2.2 Role in Particle Capture – A Detailed Explanation</h4>
+    <p>Inside an electrostatic precipitator, the dust particles are deliberately charged negatively (typically via corona discharge, described in Section 5.3). The collection plates are grounded, meaning they are maintained at zero electrical potential. When a negatively charged particle approaches a grounded conducting plate, the plate responds by redistributing its free electrons. Electrons are repelled from the region near the particle, leaving behind a surface layer of positive charges (ions in the metal lattice). This induced positive charge is not fixed; it is exactly the amount needed to make the plate an equipotential. The effective interaction is as if a positive image charge of equal magnitude were placed symmetrically behind the plate. The attractive force between the real particle and its image charge follows Coulomb’s law with separation \( 2x \), where \( x \) is the particle‑to‑plate distance:</p>
+    <div class="equation">\[ F_{\text{image}}(x) = \frac{1}{4\pi\varepsilon_0} \frac{q^2}{(2x)^2} = \frac{q^2}{16\pi\varepsilon_0 x^2} \]</div>
+    <p>This force is always attractive, independent of the sign of \( q \). It grows rapidly as the particle nears the plate (\( F \propto 1/x^2 \)), ensuring that once a charged particle comes within a few millimetres of the plate, it is pulled in with an acceleration that overcomes any reverse drag or gas turbulence. Thus, Coulomb’s law not only initiates the drift but also guarantees final adhesion.</p>
+
+    <h4>5.2.3 Sensitivity Analysis – Force Variation from Discharge Wire to Plate</h4>
+    <p>Consider a particle leaving the vicinity of the high‑voltage discharge wire. Near the wire (\( r \approx 1 \, \text{mm} \)), the electric field is extremely intense (Section 5.3), but the particle’s own charge \( q \) is still being accumulated. The Coulomb force toward the plate at this stage is negligible because the plate is far (\( x \approx d \approx 0.2 \, \text{m} \)). As the particle drifts outward, two effects change the net attractive force:</p>
+    <ol>
+        <li>Increase in \( q \) – The particle continues to acquire ions until it reaches saturation charge (typically \( q_{\text{sat}} \propto a^2 \) for field charging, where \( a \) is particle radius).</li>
+        <li>Decrease in distance \( x \) – The particle moves from \( x \approx d \) down to \( x \approx a \) (contact).</li>
+    </ol>
+    <p>Using the image force expression, the ratio of force at contact (\( x = a \)) to force at the start of the drift region (\( x = d \)) is:</p>
+    <div class="equation">\[ \frac{F(a)}{F(d)} = \left( \frac{d}{a} \right)^2 \]</div>
+    <p>For typical values \( d = 0.2 \, \text{m} \), \( a = 5 \, \mu\text{m} = 5\times10^{-6} \, \text{m} \), this ratio is \( (0.2 / 5\times10^{-6})^2 = (4\times10^4)^2 = 1.6\times10^9 \). Such an enormous magnification explains why particles “snap” onto the plate in the final stage, even if the initial electrostatic force was barely sufficient to overcome Brownian motion. In practice, the force also includes the external field contribution \( qE(x) \), but the image term dominates for \( x < 1 \, \text{mm} \).</p>
+
+   <div style="background: #1e2f2c; border-radius: 1rem; padding: 1rem; margin: 1rem 0; text-align: center;">
+    <p style="color: white; font-weight: bold;">📐 Figure 3: Coulomb attraction – particle and its image charge</p>
+    <canvas id="coulombDiagram" width="500" height="250" style="width:100%; max-width:500px; height:auto; background: #1f3d38; border-radius: 16px; display: block; margin: 0 auto;"></canvas>
+    <p style="color: #ddd; font-size: 0.85rem;">[Negatively charged particle (−) attracted to grounded plate via positive image charge (+)]</p>
+</div>
+
+<script>
+    (function drawCoulomb() {
+        const canvas = document.getElementById('coulombDiagram');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        const w = canvas.width = 500;
+        const h = canvas.height = 250;
+        
+        ctx.fillStyle = '#1f3d38';
+        ctx.fillRect(0, 0, w, h);
+        
+        // Grounded plate (vertical line)
+        const plateX = 350;
+        ctx.beginPath();
+        ctx.moveTo(plateX, 40);
+        ctx.lineTo(plateX, h-40);
+        ctx.lineWidth = 4;
+        ctx.strokeStyle = '#f4c542';
+        ctx.stroke();
+        ctx.fillStyle = '#f4c542';
+        ctx.font = 'bold 14px monospace';
+        ctx.fillText('Grounded Plate', plateX+10, h/2);
+        
+        // Negative particle (left side)
+        const particleX = 150;
+        const particleY = h/2;
+        ctx.fillStyle = '#5dc9ff';
+        ctx.beginPath();
+        ctx.arc(particleX, particleY, 12, 0, 2*Math.PI);
+        ctx.fill();
+        ctx.fillStyle = 'white';
+        ctx.font = 'bold 14px sans-serif';
+        ctx.fillText('−', particleX-4, particleY+5);
+        
+        // Image charge (mirrored behind plate)
+        const imageX = 2*plateX - particleX;
+        ctx.fillStyle = '#ffaa88';
+        ctx.beginPath();
+        ctx.arc(imageX, particleY, 10, 0, 2*Math.PI);
+        ctx.fill();
+        ctx.fillStyle = 'white';
+        ctx.fillText('+', imageX-4, particleY+5);
+        
+        // Attractive force arrow
+        ctx.beginPath();
+        ctx.moveTo(particleX+12, particleY);
+        ctx.lineTo(plateX-15, particleY);
+        ctx.strokeStyle = '#ffe6aa';
+        ctx.lineWidth = 2;
+        ctx.setLineDash([5, 5]);
+        ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.fillStyle = '#ffe6aa';
+        ctx.font = '12px monospace';
+        ctx.fillText('Attractive Force', (particleX+plateX)/2-50, particleY-8);
+        
+        // Labels
+        ctx.fillStyle = '#aaffdd';
+        ctx.fillText('Real particle', particleX-30, particleY-15);
+        ctx.fillStyle = '#ffccaa';
+        ctx.fillText('Image charge', imageX-30, particleY-15);
+    })();
+</script>
+
+    <!-- 5.3 Electric Field Intensity -->
+    <h3>5.3 Electric Field Intensity and Dielectric Breakdown – The Corona Discharge</h3>
+
+    <h4>5.3.1 Electric Field Strength – Definition and Uniform Field Approximation</h4>
+    <p>The electric field intensity \( \mathbf{E} \) at a point is defined as the electrostatic force per unit positive test charge:</p>
+    <div class="equation">\[ \mathbf{E} = \frac{\mathbf{F}}{q_{\text{test}}} \]</div>
+    <p>For a parallel‑plate arrangement (which approximates the drift region of an ESP), the field is nearly uniform and its magnitude is simply the potential gradient:</p>
+    <div class="equation">\[ E = \frac{V}{d} \]</div>
+    <p>where \( V \) is the potential difference between the plates and \( d \) is their separation. In an ESP, typical values are \( V = 50 \, \text{kV} \) and \( d = 0.2 \, \text{m} \), giving \( E = 2.5 \times 10^5 \, \text{V/m} \). This is well below the dielectric strength of air, so no sparking occurs in the drift region. However, near the discharge wire, the field is far from uniform – it follows a radial decay.</p>
+
+    <h4>5.3.2 The Physics of Corona Discharge – A Deep Technical Explanation</h4>
+    <p>The corona discharge is the heart of the ESP. It provides the ions that charge the dust particles. To understand corona, we must first examine dielectric breakdown of gases.</p>
+    <p><strong>Dielectric breakdown threshold:</strong> Air is normally an excellent insulator because neutral molecules (N₂, O₂) have tightly bound electrons. However, when the applied electric field exceeds a critical value \( E_{\text{breakdown}} \approx 3 \times 10^6 \, \text{V/m} \) at standard temperature and pressure, free electrons (always present due to cosmic rays or background radiation) gain enough kinetic energy between collisions to ionise neutral molecules. The process is known as impact ionisation:</p>
+    <div class="equation">\[ e^- (\text{fast}) + \text{M} \rightarrow \text{M}^+ + 2e^- \]</div>
+    <p>The newly liberated electrons are also accelerated, creating an electron avalanche. If the field is uniform, the avalanche quickly bridges the entire gap, producing a spark (full breakdown). But in an ESP, the field is deliberately made non‑uniform by using a thin wire (diameter ∼0.1–0.5 mm) as the high‑voltage electrode and a large plate as the grounded electrode.</p>
+    <p><strong>Why a thin wire?</strong> The field magnitude at the surface of a cylindrical conductor of radius \( r_0 \) carrying line charge density \( \lambda \) is:</p>
+    <div class="equation">\[ E(r_0) = \frac{\lambda}{2\pi\varepsilon_0 r_0} \]</div>
+    <p>For a given potential difference \( V_0 \) between wire and plate (distance \( d \)), one can derive (using Gauss’s law and integration):</p>
+    <div class="equation">\[ E(r) = \frac{V_0}{r \ln(d/r_0)} \qquad (r_0 \le r \le d) \]</div>
+    <p>This radial field decays as \( 1/r \). By making \( r_0 \) very small, \( E(r_0) \) becomes extremely high – easily exceeding \( 3\times10^6 \, \text{V/m} \) – while at larger \( r \) (e.g., \( r = d/2 \)), \( E \) falls below the breakdown threshold. Therefore, ionisation occurs only in a thin cylindrical sheath around the wire (the corona region). Beyond this sheath, the field is sub‑breakdown, so no spark bridges the gap.</p>
+    <p><strong>The discharge mechanism:</strong> In a negative corona (wire at negative potential relative to plate), free electrons are accelerated away from the wire toward the plate. Within the corona sheath, each ionising collision produces a positive ion and an additional electron. The positive ions drift slowly back to the wire, while the electrons rush outward into the drift region. Some electrons attach to neutral molecules (especially oxygen) to form negative ions (e.g., O₂⁻). These negative ions then attach to dust particles, charging them negatively. The steady, non‑arcing glow – visible as a faint bluish light – is the corona. Thus, dielectric breakdown, which is usually a destructive process, is harnessed constructively to generate the charge carriers needed for particle capture.</p>
+    <p><strong>Summary of conditions:</strong></p>
+    <ul>
+        <li>\( E(r_0) > 3\times10^6 \, \text{V/m} \) → corona onset.</li>
+        <li>\( E(r) < 3\times10^6 \, \text{V/m} \) for \( r > r_c \) (where \( r_c \) is a few mm) → no spark‑over.</li>
+        <li>The wire must be clean and of appropriate diameter; sharp points or contaminants cause localised sparking.</li>
+    </ul>
+
+   <div style="background: #1e2f2c; border-radius: 1rem; padding: 1rem; margin: 1rem 0; text-align: center;">
+    <p style="color: white; font-weight: bold;">⚡ Figure 4: Radial electric field profile from wire to plate</p>
+    <canvas id="fieldProfile" width="600" height="300" style="width:100%; max-width:600px; height:auto; background: #001f1f; border-radius: 16px; display: block; margin: 0 auto;"></canvas>
+    <p style="color: #ddd; font-size: 0.85rem;">[Corona region (E > breakdown threshold) near wire; drift region (E < threshold) toward plate]</p>
+</div>
+
+<script>
+    (function drawFieldProfile() {
+        const canvas = document.getElementById('fieldProfile');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        const w = canvas.width = 600;
+        const h = canvas.height = 300;
+        
+        ctx.fillStyle = '#072b24';
+        ctx.fillRect(0, 0, w, h);
+        
+        // Axes
+        ctx.beginPath();
+        ctx.moveTo(50, h-50);
+        ctx.lineTo(w-30, h-50);
+        ctx.moveTo(50, h-50);
+        ctx.lineTo(50, 30);
+        ctx.strokeStyle = '#ffffff';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+        
+        // Labels
+        ctx.fillStyle = '#ddd';
+        ctx.font = '12px monospace';
+        ctx.fillText('Distance from wire (r) →', w/2-80, h-20);
+        ctx.fillText('E(r) ↑', 20, 50);
+        
+        // Draw E(r) curve: decays as 1/r from r0 to d
+        const r0 = 5;   // wire radius in pixels (near x=50)
+        const d = 250;  // plate distance (x=300)
+        const E0 = 200; // max height
+        
+        ctx.beginPath();
+        ctx.moveTo(50, h-50 - E0);
+        for (let x = 55; x <= 300; x++) {
+            let r = (x - 50) + r0;
+            let E = E0 * (r0 / r);
+            if (E > E0) E = E0;
+            let y = h-50 - Math.min(E, E0);
+            ctx.lineTo(x, y);
+        }
+        ctx.strokeStyle = '#ffaa66';
+        ctx.lineWidth = 3;
+        ctx.stroke();
+        
+        // Breakdown threshold line
+        const thresholdY = h-50 - 100; // assume threshold at 100 units
+        ctx.beginPath();
+        ctx.moveTo(50, thresholdY);
+        ctx.lineTo(300, thresholdY);
+        ctx.strokeStyle = '#ff6666';
+        ctx.setLineDash([8, 6]);
+        ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.fillStyle = '#ffaaaa';
+        ctx.fillText('Breakdown threshold', 310, thresholdY);
+        
+        // Corona region label
+        ctx.fillStyle = '#ffcc88';
+        ctx.fillText('Corona region', 60, h-50-130);
+        // Drift region label
+        ctx.fillStyle = '#88ccff';
+        ctx.fillText('Drift region', 180, h-50-40);
+        
+        // Wire and plate indicators
+        ctx.fillStyle = '#aaffdd';
+        ctx.fillText('Wire', 35, h-50-5);
+        ctx.fillStyle = '#f4c542';
+        ctx.fillText('Plate', 290, h-50-5);
+        
+        // Annotations: electron avalanche, ion drift
+        ctx.fillStyle = '#ffffaa';
+        ctx.fillText('Electron avalanche', 100, h-50-170);
+        ctx.fillStyle = '#88ccff';
+        ctx.fillText('Negative ions →', 200, h-50-100);
+    })();
+</script>
+
+    <!-- 5.4 Electric Field Line Geometry -->
+    <h3>5.4 Electric Field Line Geometry – Non‑Uniform versus Uniform Fields</h3>
+
+    <h4>5.4.1 General Properties of Field Lines</h4>
+    <p>Electric field lines are a visual tool: they point in the direction of \( \mathbf{E} \) at every point, and their density (number per unit cross‑sectional area) is proportional to the field strength. Lines originate on positive charges and terminate on negative charges; they never cross.</p>
+
+    <h4>5.4.2 The Two Distinct Regions of an ESP</h4>
+    <p>A wire‑plate precipitator cannot be described by a single field pattern. Instead, two zones exist with markedly different geometries:</p>
+    <table class="physics-table">
+        <thead><tr><th>Region</th><th>Field Type</th><th>Function</th></tr></thead>
+        <tbody>
+            <tr><td>Corona sheath (within ∼2–5 mm of wire)</td><td>Strongly radial, non‑uniform</td><td>Ionisation and particle charging</td></tr>
+            <tr><td>Drift region (sheath boundary to plate)</td><td>Approximately uniform, parallel to plate</td><td>Steady migration of charged particles</td></tr>
+        </tbody>
+    </table>
+    <p><strong>Why non‑uniform field at the wire is essential:</strong> A uniform field (e.g., parallel plates) would require the entire gap to be above breakdown voltage to initiate corona, which would cause immediate arcing. The non‑uniform field confines ionisation to a tiny volume, allowing a stable corona without spark‑over. Moreover, the radial field lines ensure that ions are distributed evenly into the gas stream, not just along a single direction.</p>
+    <p><strong>Why uniform field in the drift region is desirable:</strong> Once particles are charged, they experience a force \( F_e = qE \). If \( E \) varied strongly with position, particles would accelerate and decelerate erratically, reducing collection efficiency. A nearly uniform field provides a constant acceleration, leading to a predictable terminal velocity (see Section 5.5). The uniform field approximation also simplifies engineering calculations (e.g., Deutsch’s efficiency equation).</p>
+
+    <h4>5.4.3 Transition from Radial to Uniform – Mathematical Description</h4>
+    <p>Using the method of images for a line charge above a grounded plane, the exact field lines are given by equating the stream function. They are arcs of circles near the wire, gradually straightening to become perpendicular to the plate. The transition distance is approximately \( x \approx 0.2d \). For a typical \( d = 0.2 \, \text{m} \), beyond \( x \approx 40 \, \text{mm} \) from the plate, the field is uniform to within 10%. In the remaining 40 mm nearest the plate, the field remains uniform but with an additional image contribution that increases the effective \( E \) slightly – an effect that only improves collection.</p>
+
+  <div style="background: #1e2f2c; border-radius: 1rem; padding: 1rem; margin: 1rem 0; text-align: center;">
+    <p style="color: white; font-weight: bold;">📐 Figure 5: Field line map – wire‑plate system</p>
+    <canvas id="fieldLinesMap" width="600" height="300" style="width:100%; max-width:600px; height:auto; background: #1f3d38; border-radius: 16px; display: block; margin: 0 auto;"></canvas>
+    <p style="color: #ddd; font-size: 0.85rem;">[Red: dense radial lines near wire (corona); Blue: parallel lines near plate (drift)]</p>
+</div>
+
+<script>
+    (function drawFieldLines() {
+        const canvas = document.getElementById('fieldLinesMap');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        const w = canvas.width = 600;
+        const h = canvas.height = 300;
+        
+        ctx.fillStyle = '#1f3d38';
+        ctx.fillRect(0, 0, w, h);
+        
+        const wireX = 80;
+        const plateX = w - 60;
+        
+        // Draw wire (circle)
+        ctx.fillStyle = '#aaffdd';
+        ctx.beginPath();
+        ctx.arc(wireX, h/2, 8, 0, 2*Math.PI);
+        ctx.fill();
+        ctx.fillStyle = 'black';
+        ctx.font = 'bold 12px monospace';
+        ctx.fillText('−', wireX-3, h/2+4);
+        ctx.fillStyle = '#aaffdd';
+        ctx.fillText('Wire', wireX-20, h/2-10);
+        
+        // Draw plate (rectangle)
+        ctx.fillStyle = '#f4c542';
+        ctx.fillRect(plateX, 40, 12, h-80);
+        ctx.fillStyle = '#f4c542';
+        ctx.fillText('Plate', plateX-25, h/2);
+        ctx.fillStyle = 'white';
+        ctx.fillText('+', plateX+3, h/2+4);
+        
+        // Draw field lines: radial near wire, curving to perpendicular near plate
+        const startAngles = [-60, -30, 0, 30, 60]; // degrees from horizontal
+        for (let angle of startAngles) {
+            let rad = angle * Math.PI / 180;
+            let x = wireX + 15 * Math.cos(rad);
+            let y = h/2 + 15 * Math.sin(rad);
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            // Bezier curve: start radial, end perpendicular to plate
+            let cp1x = wireX + 60 * Math.cos(rad);
+            let cp1y = h/2 + 60 * Math.sin(rad);
+            let cp2x = plateX - 40;
+            let cp2y = y + (plateX - wireX) * 0.2 * Math.sin(rad);
+            let endX = plateX - 5;
+            let endY = y;
+            ctx.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, endX, endY);
+            if (Math.abs(angle) < 45) {
+                ctx.strokeStyle = '#ffaa66';
+            } else {
+                ctx.strokeStyle = '#88aaff';
+            }
+            ctx.lineWidth = 2;
+            ctx.stroke();
+        }
+        
+        // Additional straight parallel lines near plate
+        for (let y = 80; y < h-80; y+=40) {
+            ctx.beginPath();
+            ctx.moveTo(wireX+100, y);
+            ctx.lineTo(plateX-10, y);
+            ctx.strokeStyle = '#88aaff';
+            ctx.stroke();
+        }
+        
+        // Labels
+        ctx.fillStyle = '#ffaa66';
+        ctx.fillText('Corona region (radial, dense)', wireX+30, 50);
+        ctx.fillStyle = '#88aaff';
+        ctx.fillText('Drift region (uniform, parallel)', plateX-150, h-20);
+    })();
+</script>
+
+    <!-- 5.5 Quantitative Vector Dynamics -->
+    <h3>5.5 Quantitative Vector Dynamics – Electrostatic Force versus Viscous Drag</h3>
+
+    <h4>5.5.1 The Two Opposing Forces</h4>
+    <p>Once a dust particle has acquired a charge \( q \) and enters the drift region, it is subject to two main forces in the direction perpendicular to the gas flow (the migration direction):</p>
+    <ol>
+        <li><strong>Electrostatic force</strong> (driving the particle toward the plate): \( \mathbf{F}_e = q \mathbf{E} \), where \( \mathbf{E} \) is the local electric field (taken as uniform in the drift region, so \( E = V/d \)).</li>
+        <li><strong>Viscous drag force</strong> (opposing motion). For spherical particles of radius \( a \) moving with velocity \( v \) through a fluid of dynamic viscosity \( \eta \), Stokes’ law gives: \( \mathbf{F}_d = -6\pi\eta a \, \mathbf{v} \). This linear dependence on velocity holds for laminar flow conditions (\( Re < 0.2 \)), which is true for typical dust particles (<10 μm) in air at migration speeds below ∼1 m/s.</li>
+    </ol>
+    <p>Other forces (gravity, buoyancy, Brownian diffusion) are typically negligible for particles >0.5 μm in the horizontal flow of an ESP, though they matter for very fine particulates.</p>
+
+    <h4>5.5.2 Equation of Motion and Terminal Migration Velocity</h4>
+    <p>Applying Newton’s second law in the migration direction (\( x \)‑axis, positive toward the plate):</p>
+    <div class="equation">\[ m \frac{dv}{dt} = qE - 6\pi\eta a \, v \]</div>
+    <p>where \( v = dx/dt \) is the instantaneous migration velocity, and \( m = \frac{4}{3}\pi a^3 \rho_p \) (particle density \( \rho_p \)). Because \( m \) is extremely small (\( \sim 10^{-15} \, \text{kg} \) for a 1 μm particle), the inertial term \( m\, dv/dt \) becomes negligible after a very short transient time \( \tau = m/(6\pi\eta a) \approx 10^{-6} \, \text{s} \). Setting \( dv/dt = 0 \) yields the terminal (steady) migration velocity:</p>
+    <div class="equation">\[ v_t = \frac{qE}{6\pi\eta a} \]</div>
+    <p>This constant velocity is the speed at which the particle drifts toward the plate. For typical values (\( q = 1\times10^{-14} \, \text{C}, E = 2.5\times10^5 \, \text{V/m}, \eta = 1.8\times10^{-5} \, \text{Pa·s}, a = 1\,\mu\text{m} \)):</p>
+    <div class="equation">\[ v_t = \frac{(1\times10^{-14})(2.5\times10^5)}{6\pi(1.8\times10^{-5})(1\times10^{-6})} = \frac{2.5\times10^{-9}}{3.39\times10^{-10}} \approx 7.4 \, \text{m/s} \]</div>
+    <p>This high velocity means a particle crosses a 0.2 m gap in about 0.027 s, far shorter than typical gas residence times (1–3 s). Thus, once charged, particles are collected rapidly.</p>
+    <p><strong>Important physical insight:</strong> The migration velocity is independent of the particle’s mass (it cancels out). It depends linearly on \( q \) and \( E \), and inversely on \( a \). This means that for the same charge, smaller particles actually migrate faster – a counter‑intuitive result that holds only when viscous drag is the dominant retarding force. However, in practice, the charge \( q \) scales with particle surface area (\( q \propto a^2 \) for field charging), so \( v_t \propto a^2 / a = a \). Thus larger particles have higher terminal velocities in real precipitators.</p>
+
+    <h4>5.5.3 Limitations of Stokes’ Law and the Cunningham Correction</h4>
+    <p>For particles below 1 μm, the continuum assumption of Stokes’ law breaks down because the particle size becomes comparable to the mean free path of air molecules (\( \lambda \approx 68 \, \text{nm} \) at STP). The drag force is reduced, effectively increasing \( v_t \). The correction factor \( C_c \) (Cunningham slip factor) is:</p>
+    <div class="equation">\[ C_c = 1 + \frac{\lambda}{a} \left[ 1.257 + 0.4 \exp\left(-1.1\frac{a}{\lambda}\right) \right] \]</div>
+    <p>The corrected migration velocity becomes:</p>
+    <div class="equation">\[ v_t^{\text{corr}} = \frac{qE}{6\pi\eta a} \times C_c \]</div>
+    <p>For \( a = 0.1\,\mu\text{m} \), \( C_c \approx 2.9 \), nearly tripling the velocity. This explains why electrostatic precipitators can capture submicron particles effectively, unlike inertial devices (cyclones).</p>
+
+    <div style="background: #1e2f2c; border-radius: 1rem; padding: 1rem; margin: 1rem 0; text-align: center;">
+    <p style="color: white; font-weight: bold;">📐 Figure 6: Free‑body diagram – dust particle in drift region</p>
+    <canvas id="freebodyDiagram" width="500" height="250" style="width:100%; max-width:500px; height:auto; background: #1f3d38; border-radius: 16px; display: block; margin: 0 auto;"></canvas>
+    <p style="color: #ddd; font-size: 0.85rem;">[Electrostatic force toward plate → viscous drag opposite velocity; terminal velocity when forces balance]</p>
+</div>
+
+<script>
+    (function drawFreebody() {
+        const canvas = document.getElementById('freebodyDiagram');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        const w = canvas.width = 500;
+        const h = canvas.height = 250;
+        
+        ctx.fillStyle = '#1f3d38';
+        ctx.fillRect(0, 0, w, h);
+        
+        // Particle (circle)
+        const cx = w/2;
+        const cy = h/2;
+        ctx.fillStyle = '#5dc9ff';
+        ctx.beginPath();
+        ctx.arc(cx, cy, 16, 0, 2*Math.PI);
+        ctx.fill();
+        ctx.fillStyle = 'white';
+        ctx.font = 'bold 14px sans-serif';
+        ctx.fillText('−', cx-5, cy+5);
+        ctx.fillStyle = '#aaffdd';
+        ctx.font = '12px monospace';
+        ctx.fillText('Dust particle', cx-35, cy-20);
+        
+        // Electrostatic force arrow (right)
+        ctx.beginPath();
+        ctx.moveTo(cx+16, cy);
+        ctx.lineTo(cx+80, cy);
+        ctx.strokeStyle = '#ffaa66';
+        ctx.lineWidth = 3;
+        ctx.stroke();
+        ctx.fillStyle = '#ffaa66';
+        ctx.font = 'bold 14px sans-serif';
+        ctx.fillText('→', cx+70, cy+5);
+        ctx.fillText('Fₑ = qE', cx+30, cy-10);
+        
+        // Drag force arrow (left)
+        ctx.beginPath();
+        ctx.moveTo(cx-16, cy);
+        ctx.lineTo(cx-80, cy);
+        ctx.strokeStyle = '#88aaff';
+        ctx.stroke();
+        ctx.fillStyle = '#88aaff';
+        ctx.fillText('←', cx-85, cy+5);
+        ctx.fillText('F_d = 6πηav', cx-100, cy-10);
+        
+        // Plate indicator (right side)
+        ctx.fillStyle = '#f4c542';
+        ctx.fillRect(w-40, 40, 12, h-80);
+        ctx.fillStyle = '#f4c542';
+        ctx.fillText('Plate (+)', w-70, h/2);
+        
+        // Terminal velocity label
+        ctx.fillStyle = '#dddddd';
+        ctx.font = 'italic 12px monospace';
+        ctx.fillText('Terminal velocity: Fₑ = F_d', cx-70, cy+40);
+    })();
+</script>
+
+    <!-- 5.6 Worked Example -->
+    <h3>5.6 Worked Example – WAEC Part II Theory Style</h3>
+    <div class="example-box">
+        <p><strong>Question (WAEC Advanced Level Physics – Section 3 Electrostatics, Precipitator Application)</strong></p>
+        <p>A wire‑plate electrostatic precipitator has a potential difference of 55.0 kV between the discharge wire and the grounded collection plates. The distance from wire centre to plate is 0.220 m. The electric field in the drift region may be assumed uniform.</p>
+        <p>(a) Calculate the uniform electric field strength \( E \) in the drift region.<br>
+        (b) A spherical dust particle of radius \( a = 2.50 \, \mu\text{m} \) acquires a charge \( q = -3.20 \times 10^{-14} \, \text{C} \). Determine the electrostatic force \( F_e \) acting on the particle in the drift region.<br>
+        (c) If the dynamic viscosity of air is \( \eta = 1.82 \times 10^{-5} \, \text{Pa·s} \), calculate the terminal migration velocity \( v_t \) of the particle using Stokes’ law.<br>
+        (d) Estimate the time taken for this particle to travel from the corona region boundary (2.0 mm from the plate) to the plate itself, assuming constant terminal velocity.<br>
+        (e) The particle density is \( 1200 \, \text{kg/m}^3 \). Calculate the Reynolds number for the particle’s motion at terminal velocity and comment on the validity of Stokes’ law.</p>
+    </div>
+
+    <p><strong>Solution</strong></p>
+    <p><strong>(a) Uniform electric field strength</strong><br>
+    Using \( E = V/d \):</p>
+    <div class="equation">\[ E = \frac{55.0 \times 10^3 \, \text{V}}{0.220 \, \text{m}} = 2.50 \times 10^5 \, \text{V/m} \quad \text{(or 250 kV/m)} \]</div>
+
+    <p><strong>(b) Electrostatic force</strong><br>
+    \( F_e = qE \) (magnitude, direction toward plate):</p>
+    <div class="equation">\[ F_e = (3.20 \times 10^{-14} \, \text{C}) \times (2.50 \times 10^5 \, \text{V/m}) = 8.00 \times 10^{-9} \, \text{N} \]</div>
+    <p>The negative sign of the charge indicates the force is opposite to the field direction; since the field points from wire to plate (negative wire, grounded plate), the force on a negative charge is toward the plate – correct for collection.</p>
+
+    <p><strong>(c) Terminal migration velocity (Stokes’ law)</strong><br>
+    Stokes’ law drag coefficient \( \beta = 6\pi\eta a \):</p>
+    <div class="equation">\[ \beta = 6\pi (1.82 \times 10^{-5}) (2.50 \times 10^{-6}) = 6\pi \times 4.55 \times 10^{-11} = 8.575 \times 10^{-10} \, \text{N·s/m} \]</div>
+    <p>Terminal velocity:</p>
+    <div class="equation">\[ v_t = \frac{F_e}{\beta} = \frac{8.00 \times 10^{-9}}{8.575 \times 10^{-10}} \approx 9.33 \, \text{m/s} \]</div>
+
+    <p><strong>(d) Time to travel 2.0 mm</strong><br>
+    Distance \( x = 2.0 \, \text{mm} = 0.0020 \, \text{m} \). Assuming constant \( v_t \):</p>
+    <div class="equation">\[ t = \frac{x}{v_t} = \frac{0.0020}{9.33} \approx 2.14 \times 10^{-4} \, \text{s} \quad (0.214 \, \text{ms}) \]</div>
+    <p>This very short time confirms that once a particle leaves the corona sheath, it is collected almost instantly.</p>
+
+    <p><strong>(e) Reynolds number and validity check</strong><br>
+    The Reynolds number is defined as:</p>
+    <div class="equation">\[ Re = \frac{2a \rho_{\text{air}} v_t}{\eta} \]</div>
+    <p>Take density of air \( \rho_{\text{air}} \approx 1.20 \, \text{kg/m}^3 \). Then:</p>
+    <div class="equation">\[ Re = \frac{2(2.50 \times 10^{-6})(1.20)(9.33)}{1.82 \times 10^{-5}} = \frac{5.60 \times 10^{-5}}{1.82 \times 10^{-5}} \approx 3.08 \]</div>
+    <p><strong>Comment:</strong> Stokes’ law is strictly valid for \( Re < 0.2 \). Here \( Re \approx 3.1 \), so the flow is in the transitional regime (between Stokes and Newton’s law). The actual drag force would be slightly lower than predicted by Stokes’ law, meaning our calculated \( v_t \) is an underestimate. A more accurate treatment would use a drag coefficient correction (e.g., Schiller‑Naumann correlation). Nevertheless, as a WAEC example, Stokes’ law provides a reasonable approximation and illustrates the principle of terminal velocity. In modern ESP design, engineers use corrected drag laws for precise sizing.</p>
+
+        <h3>🧪 Interactive Simulation 1: Coulomb's Law</h3>
+<div style="background: #eef3f1; border-radius: 1rem; padding: 1rem; margin: 1rem 0;">
+    <canvas id="coulombSimCanvas" width="500" height="200" style="width:100%; max-width:500px; background: #1f3d38; border-radius: 16px; display: block; margin: 0 auto 1rem auto;"></canvas>
+    <div style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between;">
+        <label>Charge q₁ (×10⁻⁹ C): <input type="range" id="q1Slider" min="-10" max="10" step="1" value="5"> <span id="q1Val">5</span></label>
+        <label>Charge q₂ (×10⁻⁹ C): <input type="range" id="q2Slider" min="-10" max="10" step="1" value="-5"> <span id="q2Val">-5</span></label>
+        <label>Distance r (cm): <input type="range" id="rSlider" min="1" max="20" step="1" value="10"> <span id="rVal">10</span> cm</label>
+    </div>
+    <p style="text-align: center; font-weight: bold; margin-top: 1rem;">Coulomb Force: <span id="forceValue">0</span> ×10⁻⁵ N</p>
+    <p style="font-size: 0.85rem; text-align: center;">💡 Force is attractive when charges have opposite signs, repulsive when same sign. The arrow length scales with force magnitude.</p>
+</div>
+
+<script>
+    (function() {
+        const canvas = document.getElementById('coulombSimCanvas');
+        const ctx = canvas.getContext('2d');
+        let w = canvas.width = 500;
+        let h = canvas.height = 200;
+        
+        const q1Slider = document.getElementById('q1Slider');
+        const q2Slider = document.getElementById('q2Slider');
+        const rSlider = document.getElementById('rSlider');
+        const q1Val = document.getElementById('q1Val');
+        const q2Val = document.getElementById('q2Val');
+        const rVal = document.getElementById('rVal');
+        const forceSpan = document.getElementById('forceValue');
+        
+        const k = 8.99e9; // N·m²/C²
+        
+        function updateSimulation() {
+            let q1 = parseFloat(q1Slider.value) * 1e-9;
+            let q2 = parseFloat(q2Slider.value) * 1e-9;
+            let r = parseFloat(rSlider.value) / 100; // to meters
+            q1Val.innerText = q1Slider.value;
+            q2Val.innerText = q2Slider.value;
+            rVal.innerText = rSlider.value;
+            
+            let F = (k * Math.abs(q1 * q2)) / (r * r);
+            let forceDisplay = (F * 1e5).toFixed(2); // in 10⁻⁵ N
+            forceSpan.innerText = forceDisplay;
+            
+            // Draw the two charges
+            ctx.fillStyle = '#1f3d38';
+            ctx.fillRect(0, 0, w, h);
+            
+            let x1 = w * 0.35;
+            let x2 = w * 0.65;
+            let y = h/2;
+            
+            // q1 (left)
+            ctx.fillStyle = q1 > 0 ? '#ff6666' : '#66aaff';
+            ctx.beginPath();
+            ctx.arc(x1, y, 20, 0, 2*Math.PI);
+            ctx.fill();
+            ctx.fillStyle = 'white';
+            ctx.font = 'bold 16px sans-serif';
+            ctx.fillText(q1 > 0 ? '+' : '−', x1-6, y+7);
+            
+            // q2 (right)
+            ctx.fillStyle = q2 > 0 ? '#ff6666' : '#66aaff';
+            ctx.beginPath();
+            ctx.arc(x2, y, 20, 0, 2*Math.PI);
+            ctx.fill();
+            ctx.fillStyle = 'white';
+            ctx.fillText(q2 > 0 ? '+' : '−', x2-6, y+7);
+            
+            // Force arrow
+            let forceMag = Math.min(1, F / 1e-4); // scale
+            let arrowLength = 40 + forceMag * 80;
+            let isAttractive = (q1 * q2) < 0;
+            let arrowStart, arrowEnd;
+            if (isAttractive) {
+                arrowStart = (q1 < 0 ? x1+20 : x2-20);
+                arrowEnd   = (q1 < 0 ? x2-20 : x1+20);
+            } else {
+                arrowStart = (q1 > 0 ? x1+20 : x1-20);
+                arrowEnd   = (q1 > 0 ? x2-20 : x2+20);
+                if (q1 > 0 && q2 > 0) { arrowStart = x1+20; arrowEnd = x2-20; }
+                else if (q1 < 0 && q2 < 0) { arrowStart = x2+20; arrowEnd = x1-20; }
+            }
+            ctx.beginPath();
+            ctx.moveTo(arrowStart, y);
+            ctx.lineTo(arrowEnd, y);
+            ctx.strokeStyle = '#f4c542';
+            ctx.lineWidth = 3;
+            ctx.stroke();
+            // arrowhead
+            let angle = Math.atan2(0, arrowEnd - arrowStart);
+            let headX = arrowEnd;
+            let headY = y;
+            ctx.beginPath();
+            ctx.moveTo(headX, headY);
+            ctx.lineTo(headX - 10 * Math.cos(angle-0.4), headY - 10 * Math.sin(angle-0.4));
+            ctx.lineTo(headX - 10 * Math.cos(angle+0.4), headY - 10 * Math.sin(angle+0.4));
+            ctx.fillStyle = '#f4c542';
+            ctx.fill();
+            
+            ctx.fillStyle = '#dddddd';
+            ctx.fillText('q₁', x1-30, y-15);
+            ctx.fillText('q₂', x2+15, y-15);
+        }
+        
+        q1Slider.addEventListener('input', updateSimulation);
+        q2Slider.addEventListener('input', updateSimulation);
+        rSlider.addEventListener('input', updateSimulation);
+        updateSimulation();
+        window.addEventListener('resize', () => {
+            w = canvas.width = 500;
+            h = canvas.height = 200;
+            updateSimulation();
+        });
+    })();
+</script>
+        
+        <h3>🧪 Interactive Simulation 2: Particle Migration</h3>
+<div style="background: #eef3f1; border-radius: 1rem; padding: 1rem; margin: 1rem 0;">
+    <canvas id="migrationCanvas" width="600" height="150" style="width:100%; max-width:600px; background: #1f3d38; border-radius: 16px; display: block; margin: 0 auto 1rem auto;"></canvas>
+    <div style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between;">
+        <label>Voltage V (kV): <input type="range" id="voltageSlider" min="10" max="100" step="5" value="50"> <span id="voltageVal">50</span> kV</label>
+        <label>Particle size a (μm): <input type="range" id="aSlider" min="0.5" max="10" step="0.5" value="2"> <span id="aVal">2.0</span> μm</label>
+        <label>Charge q (×10⁻¹⁴ C): <input type="range" id="qSimSlider" min="0.5" max="5" step="0.5" value="2"> <span id="qSimVal">2.0</span></label>
+        <button id="resetMigrateBtn" style="background: #f4c542; border: none; padding: 0.3rem 1rem; border-radius: 20px; cursor: pointer;">⟳ Reset Particle</button>
+    </div>
+    <p style="text-align: center; font-size: 0.9rem;">Plate distance = 20 cm | Terminal velocity <span id="vtDisplay">0</span> m/s</p>
+</div>
+
+<script>
+    (function() {
+        const canvas = document.getElementById('migrationCanvas');
+        const ctx = canvas.getContext('2d');
+        let w = canvas.width = 600;
+        let h = canvas.height = 150;
+        
+        const voltageSlider = document.getElementById('voltageSlider');
+        const aSlider = document.getElementById('aSlider');
+        const qSimSlider = document.getElementById('qSimSlider');
+        const voltageVal = document.getElementById('voltageVal');
+        const aVal = document.getElementById('aVal');
+        const qSimVal = document.getElementById('qSimVal');
+        const vtDisplay = document.getElementById('vtDisplay');
+        const resetBtn = document.getElementById('resetMigrateBtn');
+        
+        const d = 0.20; // plate separation (m)
+        const eta = 1.8e-5; // viscosity Pa·s
+        let animFrame;
+        let particleX = 50; // start near left
+        const plateX = w - 40;
+        
+        function computeTerminalVelocity() {
+            let V = parseFloat(voltageSlider.value) * 1000;
+            let a = parseFloat(aSlider.value) * 1e-6;
+            let q = parseFloat(qSimSlider.value) * 1e-14;
+            let E = V / d;
+            let vt = (q * E) / (6 * Math.PI * eta * a);
+            vtDisplay.innerText = vt.toFixed(2);
+            return vt;
+        }
+        
+        function drawSimulation() {
+            ctx.fillStyle = '#1f3d38';
+            ctx.fillRect(0, 0, w, h);
+            // draw plate
+            ctx.fillStyle = '#f4c542';
+            ctx.fillRect(plateX, 20, 8, h-40);
+            ctx.fillStyle = 'white';
+            ctx.fillText('Plate (+)', plateX-45, h/2);
+            // draw particle
+            ctx.fillStyle = '#5dc9ff';
+            ctx.beginPath();
+            ctx.arc(particleX, h/2, 12, 0, 2*Math.PI);
+            ctx.fill();
+            ctx.fillStyle = 'white';
+            ctx.font = 'bold 14px monospace';
+            ctx.fillText('−', particleX-4, h/2+5);
+            // voltage label
+            ctx.fillStyle = '#ccc';
+            ctx.fillText(`V = ${voltageSlider.value} kV`, 20, 30);
+        }
+        
+        function animateMotion() {
+            let vt = computeTerminalVelocity();
+            // move particle toward plate
+            let step = Math.min(5, vt * 0.035); // pixels per frame
+            if (particleX < plateX - 15) {
+                particleX += step;
+                if (particleX > plateX - 15) particleX = plateX - 15;
+            }
+            drawSimulation();
+            animFrame = requestAnimationFrame(animateMotion);
+        }
+        
+        function updateParameters() {
+            voltageVal.innerText = voltageSlider.value;
+            aVal.innerText = parseFloat(aSlider.value).toFixed(1);
+            qSimVal.innerText = qSimSlider.value;
+            computeTerminalVelocity();
+            // Do not reset particle automatically – let user reset manually
+        }
+        
+        // Reset particle position
+        function resetParticle() {
+            particleX = 50;
+        }
+        
+        voltageSlider.addEventListener('input', updateParameters);
+        aSlider.addEventListener('input', updateParameters);
+        qSimSlider.addEventListener('input', updateParameters);
+        resetBtn.addEventListener('click', resetParticle);
+        
+        updateParameters();
+        animateMotion();
+    })();
+</script>
+    
+        <h3>🧪 Interactive Simulation 3: Electric Field Lines</h3>
+<div style="background: #eef3f1; border-radius: 1rem; padding: 1rem; margin: 1rem 0;">
+    <canvas id="fieldLinesCanvas" width="600" height="300" style="width:100%; max-width:600px; background: #1f3d38; border-radius: 16px; display: block; margin: 0 auto 1rem auto;"></canvas>
+    <div style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between;">
+        <label>Charge q₁ (left): <input type="range" id="q1Field" min="-10" max="10" step="1" value="5"> <span id="q1FieldVal">+5</span></label>
+        <label>Charge q₂ (right): <input type="range" id="q2Field" min="-10" max="10" step="1" value="-5"> <span id="q2FieldVal">-5</span></label>
+        <button id="resetFieldBtn" style="background: #f4c542; border: none; padding: 0.3rem 1rem; border-radius: 20px;">Reset (dipole)</button>
+    </div>
+    <p style="font-size: 0.85rem; text-align: center;">💡 Lines start on positive charges, end on negative. Density indicates field strength. Opposite charges attract (lines connect); like charges repel (lines bow outward).</p>
+</div>
+
+<script>
+    (function() {
+        const canvas = document.getElementById('fieldLinesCanvas');
+        const ctx = canvas.getContext('2d');
+        let w = canvas.width = 600;
+        let h = canvas.height = 300;
+        
+        const q1Slider = document.getElementById('q1Field');
+        const q2Slider = document.getElementById('q2Field');
+        const q1Span = document.getElementById('q1FieldVal');
+        const q2Span = document.getElementById('q2FieldVal');
+        const resetBtn = document.getElementById('resetFieldBtn');
+        
+        function drawFieldLines() {
+            let q1 = parseFloat(q1Slider.value);
+            let q2 = parseFloat(q2Slider.value);
+            q1Span.innerText = q1 > 0 ? `+${q1}` : q1;
+            q2Span.innerText = q2 > 0 ? `+${q2}` : q2;
+            
+            ctx.fillStyle = '#1f3d38';
+            ctx.fillRect(0, 0, w, h);
+            
+            // position of charges: left (x=150) and right (x=450)
+            const x1 = 150, x2 = 450, y0 = h/2;
+            const radius = 16;
+            
+            // draw charges with colors
+            ctx.fillStyle = q1 > 0 ? '#ff6666' : '#66aaff';
+            ctx.beginPath();
+            ctx.arc(x1, y0, radius, 0, 2*Math.PI);
+            ctx.fill();
+            ctx.fillStyle = 'white';
+            ctx.font = 'bold 18px sans-serif';
+            ctx.fillText(q1 > 0 ? '+' : '−', x1-7, y0+7);
+            
+            ctx.fillStyle = q2 > 0 ? '#ff6666' : '#66aaff';
+            ctx.beginPath();
+            ctx.arc(x2, y0, radius, 0, 2*Math.PI);
+            ctx.fill();
+            ctx.fillStyle = 'white';
+            ctx.fillText(q2 > 0 ? '+' : '−', x2-7, y0+7);
+            
+            // draw field lines (simplified: from positive to negative, or from positive to infinity)
+            // We'll draw a set of streamlines starting from points around the left charge (if positive) or right (if positive)
+            const steps = 40;
+            const maxLength = 400;
+            const stepSize = 5;
+            
+            function electricField(x, y) {
+                // compute E field at (x,y) from two point charges (in arbitrary units)
+                let eps = 1e-5;
+                let dx1 = x - x1, dy1 = y - y0;
+                let r1 = Math.hypot(dx1, dy1);
+                let E1x = q1 * dx1 / (r1*r1*r1 + eps);
+                let E1y = q1 * dy1 / (r1*r1*r1 + eps);
+                let dx2 = x - x2, dy2 = y - y0;
+                let r2 = Math.hypot(dx2, dy2);
+                let E2x = q2 * dx2 / (r2*r2*r2 + eps);
+                let E2y = q2 * dy2 / (r2*r2*r2 + eps);
+                return { x: E1x + E2x, y: E1y + E2y };
+            }
+            
+            function traceFieldLine(startX, startY, maxSteps=200) {
+                let points = [{x: startX, y: startY}];
+                let x = startX, y = startY;
+                for (let i = 0; i < maxSteps; i++) {
+                    let E = electricField(x, y);
+                    let mag = Math.hypot(E.x, E.y);
+                    if (mag < 1e-6) break;
+                    let dx = (E.x / mag) * stepSize;
+                    let dy = (E.y / mag) * stepSize;
+                    x += dx; y += dy;
+                    if (x < 10 || x > w-10 || y < 10 || y > h-10) break;
+                    points.push({x, y});
+                }
+                // also go backward
+                x = startX; y = startY;
+                for (let i = 0; i < maxSteps; i++) {
+                    let E = electricField(x, y);
+                    let mag = Math.hypot(E.x, E.y);
+                    if (mag < 1e-6) break;
+                    let dx = -(E.x / mag) * stepSize;
+                    let dy = -(E.y / mag) * stepSize;
+                    x += dx; y += dy;
+                    if (x < 10 || x > w-10 || y < 10 || y > h-10) break;
+                    points.unshift({x, y});
+                }
+                return points;
+            }
+            
+            // choose start points around positive charge(s)
+            let startAngles = [];
+            for (let ang = 0; ang < 360; ang += 18) startAngles.push(ang * Math.PI/180);
+            
+            ctx.beginPath();
+            ctx.strokeStyle = '#f4c542';
+            ctx.lineWidth = 1.5;
+            ctx.setLineDash([4, 6]);
+            
+            // function to add line from point
+            function addLineFromCharge(xc, yc, qVal) {
+                if (qVal === 0) return;
+                for (let angle of startAngles) {
+                    let startX = xc + 20 * Math.cos(angle);
+                    let startY = yc + 20 * Math.sin(angle);
+                    // only start from positive charges (field lines emanate from positive)
+                    if (qVal > 0) {
+                        let points = traceFieldLine(startX, startY);
+                        if (points.length > 5) {
+                            ctx.beginPath();
+                            ctx.moveTo(points[0].x, points[0].y);
+                            for (let i = 1; i < points.length; i++) {
+                                ctx.lineTo(points[i].x, points[i].y);
+                            }
+                            ctx.stroke();
+                        }
+                    } else {
+                        // for negative, we can draw lines terminating on it by reversing direction (optional)
+                        let points = traceFieldLine(startX, startY);
+                        if (points.length > 5) {
+                            ctx.beginPath();
+                            ctx.moveTo(points[0].x, points[0].y);
+                            for (let i = 1; i < points.length; i++) {
+                                ctx.lineTo(points[i].x, points[i].y);
+                            }
+                            ctx.stroke();
+                        }
+                    }
+                }
+            }
+            
+            // draw field lines starting from any positive charge
+            if (q1 > 0) addLineFromCharge(x1, y0, q1);
+            if (q2 > 0) addLineFromCharge(x2, y0, q2);
+            // also if both negative, we can draw from the left? But better to show no lines? Actually negative charges have lines terminating, but we'll just show nothing.
+            // For a dipole (q1 pos, q2 neg) lines go from left to right.
+            
+            ctx.setLineDash([]);
+            
+            // labels
+            ctx.fillStyle = '#dddddd';
+            ctx.font = '12px monospace';
+            ctx.fillText('q₁', x1-30, y0-15);
+            ctx.fillText('q₂', x2+15, y0-15);
+        }
+        
+        function update() {
+            drawFieldLines();
+        }
+        
+        q1Slider.addEventListener('input', update);
+        q2Slider.addEventListener('input', update);
+        resetBtn.addEventListener('click', () => {
+            q1Slider.value = 5;
+            q2Slider.value = -5;
+            update();
+        });
+        
+        update();
+        window.addEventListener('resize', () => {
+            w = canvas.width = 600;
+            h = canvas.height = 300;
+            update();
+        });
+    })();
+</script>
+        
+    <!-- 5.7 Conclusion -->
+    <h3>5.7 Conclusion – Synthesis of Principles into Practice</h3>
+    <p>This chapter has demonstrated how every major concept from WAEC Section 3 (Electrostatics) finds direct application in the electrostatic precipitator:</p>
+    <ul>
+        <li><strong>Coulomb’s law</strong> explains the attractive force between charged dust and grounded plates, with the image force ensuring final capture.</li>
+        <li><strong>Electric field strength</strong> (uniform and non‑uniform) governs both the corona discharge (via dielectric breakdown) and the migration velocity.</li>
+        <li><strong>Field line geometry</strong> separates the charging region (radial, non‑uniform) from the collection region (uniform, parallel).</li>
+        <li><strong>Vector dynamics</strong> (electrostatic force balanced by Stokes’ drag) yields the terminal migration velocity, a key parameter in efficiency calculations.</li>
+    </ul>
+    <p>The worked example ties these elements together, showing how a candidate can progress from fundamental formulas to realistic engineering estimates. The student who masters this content not only excels in the WAEC examination but also gains a deep appreciation for how abstract physics becomes a transformative technology – cleaning the air in power plants, cement kilns, and steel mills worldwide. Electrostatic precipitators stand as a testament to the power of classical electromagnetism applied with ingenuity.</p>
+
+    <p><em>End of Section 5 – Electrostatic Precipitator Physics Principles</em></p>
+</div>
+
+        <!-- Real-world applications -->
+      <div id="applications" class="card tab-content">
+    <h2>🏭 Real‑World Applications of Electrostatic Precipitators</h2>
+
+    <!-- 6.1 Coal‑Fired Power Plants -->
+    <h3>6.1 Coal‑Fired Power Plants</h3>
+    <p>The largest global application of electrostatic precipitators is in utility boilers that burn pulverised coal. A single 500 MW power plant can produce over 500 tonnes of fly ash per day. Fly ash consists of fine particles of silicon dioxide (SiO₂), aluminium oxide (Al₂O₃), and iron oxide (Fe₂O₃), with diameters ranging from 1 µm to 100 µm.</p>
+    <p><strong>Operating conditions:</strong><br>Flue gas temperatures typically between 130 °C and 180 °C. At these temperatures, fly ash exhibits moderate electrical resistivity (\(10^8\) to \(10^{10}\) Ω·cm), which is ideal for ESP collection.</p>
+    <p><strong>Typical performance:</strong><br>ESPs in coal plants routinely achieve collection efficiencies of 99.5% to 99.9%. Modern installations use wide plate spacing (400 mm) and high‑voltage (up to 100 kV) to handle high dust loads.</p>
+    <p><strong>Environmental impact:</strong><br>Without ESPs, a single large coal plant would emit over 50,000 tonnes of particulate matter annually, causing severe respiratory illness and acid rain. With ESPs, the visible plume becomes nearly transparent, and emissions comply with WHO and EPA standards.</p>
+    <div style="background: #1e2f2c; border-radius: 1rem; padding: 1rem; margin: 1rem 0; text-align: center;">
+    <p style="color: white; font-weight: bold;">📊 Diagram – Coal‑fired power plant with ESP</p>
+    <canvas id="coalPlantDiagram" width="650" height="250" style="width:100%; max-width:650px; height:auto; background: #1f3d38; border-radius: 16px; display: block; margin: 0 auto;"></canvas>
+    <p style="color: #ddd; font-size: 0.85rem;">[Boiler → ESP → Stack | Fly ash collected in hoppers]</p>
+</div>
+
+<script>
+    (function drawCoalPlant() {
+        const canvas = document.getElementById('coalPlantDiagram');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        const w = canvas.width = 650;
+        const h = canvas.height = 250;
+        
+        ctx.fillStyle = '#1f3d38';
+        ctx.fillRect(0, 0, w, h);
+        
+        // Boiler (left)
+        ctx.fillStyle = '#cc8855';
+        ctx.fillRect(40, 70, 80, 120);
+        ctx.fillStyle = '#ffaa66';
+        ctx.fillRect(50, 80, 60, 100);
+        ctx.fillStyle = 'white';
+        ctx.font = 'bold 12px monospace';
+        ctx.fillText('Boiler', 60, 50);
+        
+        // ESP (middle)
+        ctx.fillStyle = '#88aacc';
+        ctx.fillRect(200, 50, 150, 160);
+        ctx.fillStyle = '#aaffdd';
+        ctx.fillRect(210, 60, 130, 140);
+        ctx.fillStyle = 'white';
+        ctx.fillText('Electrostatic', 230, 40);
+        ctx.fillText('Precipitator', 240, 55);
+        
+        // Hoppers under ESP
+        ctx.fillStyle = '#8b9a8b';
+        for (let i = 0; i < 3; i++) {
+            ctx.beginPath();
+            ctx.moveTo(215 + i*45, 210);
+            ctx.lineTo(235 + i*45, 230);
+            ctx.lineTo(255 + i*45, 210);
+            ctx.fill();
+        }
+        ctx.fillStyle = '#ddd';
+        ctx.fillText('Hoppers', 240, 240);
+        
+        // Stack (right)
+        ctx.fillStyle = '#aa8866';
+        ctx.fillRect(520, 50, 40, 160);
+        ctx.fillStyle = '#ddbb99';
+        ctx.fillRect(525, 40, 30, 20);
+        ctx.fillStyle = 'white';
+        ctx.fillText('Stack', 530, 35);
+        
+        // Arrows: boiler → ESP → stack
+        ctx.beginPath();
+        ctx.moveTo(120, 130);
+        ctx.lineTo(190, 130);
+        ctx.strokeStyle = '#f4c542';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+        ctx.fillStyle = '#f4c542';
+        ctx.fillText('→', 170, 125);
+        
+        ctx.beginPath();
+        ctx.moveTo(350, 130);
+        ctx.lineTo(510, 130);
+        ctx.stroke();
+        ctx.fillText('→', 480, 125);
+        
+        // Labels
+        ctx.fillStyle = '#ccc';
+        ctx.font = '10px monospace';
+        ctx.fillText('Dirty gas', 130, 115);
+        ctx.fillText('Clean gas', 420, 115);
+    })();
+</script>
+
+    <!-- 6.2 Cement Kilns -->
+    <h3>6.2 Cement Kilns</h3>
+    <p>Cement production is one of the most dust‑intensive industries. A modern cement plant can generate 100–150 kg of dust per tonne of clinker. The dust is highly alkaline due to calcium oxide (CaO) and potassium oxide (K₂O), giving it very high electrical resistivity (\(>10^{11}\) Ω·cm) at typical temperatures of 250–350 °C.</p>
+    <p><strong>Challenge of high‑resistivity dust:</strong><br>High resistivity reduces particle charging and causes back‑corona (sparking inside the dust layer), which lowers efficiency. Engineers solve this by:</p>
+    <ul>
+        <li><strong>Gas conditioning</strong> – injecting water mist or sulphur trioxide (SO₃) to lower resistivity.</li>
+        <li><strong>Lowering gas temperature</strong> – using a heat exchanger before the ESP.</li>
+        <li><strong>Pulse energisation</strong> – applying short high‑voltage pulses rather than continuous DC.</li>
+    </ul>
+    <p><strong>Achievable efficiency:</strong><br>With proper conditioning, modern cement kiln ESPs achieve 99.8% to 99.9% collection, meeting strict EU and US emission limits (often <20 mg/m³).</p>
+    <div style="background: #1e2f2c; border-radius: 1rem; padding: 1rem; margin: 1rem 0; text-align: center;">
+    <p style="color: white; font-weight: bold;">📐 Diagram – Cement plant process with ESP</p>
+    <canvas id="cementDiagram" width="650" height="220" style="width:100%; max-width:650px; height:auto; background: #1f3d38; border-radius: 16px; display: block; margin: 0 auto;"></canvas>
+    <p style="color: #ddd; font-size: 0.85rem;">[Preheater → Kiln → Clinker cooler → ESP → Stack]</p>
+</div>
+
+<script>
+    (function drawCement() {
+        const canvas = document.getElementById('cementDiagram');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        const w = canvas.width = 650;
+        const h = canvas.height = 220;
+        
+        ctx.fillStyle = '#1f3d38';
+        ctx.fillRect(0, 0, w, h);
+        
+        // Preheater tower (left)
+        ctx.fillStyle = '#bb9977';
+        ctx.fillRect(30, 60, 70, 100);
+        ctx.fillStyle = '#ddbb99';
+        for (let i = 0; i < 4; i++) {
+            ctx.fillRect(35, 65 + i*20, 60, 12);
+        }
+        ctx.fillStyle = 'white';
+        ctx.fillText('Preheater', 40, 50);
+        
+        // Rotary kiln (horizontal cylinder)
+        ctx.fillStyle = '#cc8866';
+        ctx.fillRect(140, 100, 130, 40);
+        ctx.fillStyle = '#ffaa77';
+        for (let i = 0; i < 6; i++) {
+            ctx.fillRect(145 + i*20, 102, 10, 36);
+        }
+        ctx.fillStyle = 'white';
+        ctx.fillText('Rotary Kiln', 170, 85);
+        
+        // Clinker cooler (right of kiln)
+        ctx.fillStyle = '#aa8866';
+        ctx.fillRect(300, 100, 80, 45);
+        ctx.fillStyle = 'white';
+        ctx.fillText('Clinker Cooler', 305, 85);
+        
+        // ESP
+        ctx.fillStyle = '#88aacc';
+        ctx.fillRect(420, 60, 100, 100);
+        ctx.fillStyle = 'white';
+        ctx.fillText('ESP', 450, 45);
+        
+        // Stack
+        ctx.fillStyle = '#aa8866';
+        ctx.fillRect(560, 40, 30, 120);
+        ctx.fillStyle = 'white';
+        ctx.fillText('Stack', 568, 30);
+        
+        // Arrows
+        ctx.beginPath();
+        ctx.moveTo(100, 120);
+        ctx.lineTo(135, 120);
+        ctx.strokeStyle = '#f4c542';
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(270, 120);
+        ctx.lineTo(295, 120);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(380, 120);
+        ctx.lineTo(415, 120);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(520, 110);
+        ctx.lineTo(555, 110);
+        ctx.stroke();
+        
+        ctx.fillStyle = '#f4c542';
+        ctx.fillText('→', 125, 115);
+        ctx.fillText('→', 285, 115);
+        ctx.fillText('→', 405, 115);
+        ctx.fillText('→', 540, 105);
+    })();
+</script>
+
+    <!-- 6.3 Steel and Iron Industry -->
+    <h3>6.3 Steel and Iron Industry</h3>
+    <p>Steel production involves sintering, blast furnaces, and basic oxygen furnaces (BOF). Each process generates fine iron oxide fumes (Fe₂O₃, Fe₃O₄) with particle sizes often below 1 µm. These particles are highly abrasive and corrosive.</p>
+    <p><strong>Sinter plants:</strong><br>Sintering converts iron ore fines into porous lumps. The exhaust gas contains dust and volatile organic compounds. ESPs here operate at 150–200 °C and must be robust against abrasion. Electrodes are often made of stainless steel, and rapping systems are reinforced.</p>
+    <p><strong>Electric arc furnaces (EAF):</strong><br>EAFs melt scrap steel, producing thick brown fumes of zinc oxide and iron oxide. ESPs are used after a cooling duct and a baghouse pre‑cleaner. Advanced EAF ESPs can achieve 99% efficiency, recovering valuable zinc dust for recycling.</p>
+    <div style="background: #1e2f2c; border-radius: 1rem; padding: 1rem; margin: 1rem 0; text-align: center;">
+    <p style="color: white; font-weight: bold;">⚙️ Diagram – Steel plant sinter strand with ESP</p>
+    <canvas id="steelDiagram" width="600" height="220" style="width:100%; max-width:600px; height:auto; background: #1f3d38; border-radius: 16px; display: block; margin: 0 auto;"></canvas>
+    <p style="color: #ddd; font-size: 0.85rem;">[Sinter strand → ESP → Stack | Dust hopper for recycling]</p>
+</div>
+
+<script>
+    (function drawSteel() {
+        const canvas = document.getElementById('steelDiagram');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        const w = canvas.width = 600;
+        const h = canvas.height = 220;
+        
+        ctx.fillStyle = '#1f3d38';
+        ctx.fillRect(0, 0, w, h);
+        
+        // Sinter strand (long rectangle)
+        ctx.fillStyle = '#aa8866';
+        ctx.fillRect(30, 90, 150, 60);
+        ctx.fillStyle = '#ccaa88';
+        for (let i = 0; i < 10; i++) {
+            ctx.fillRect(35 + i*14, 95, 8, 50);
+        }
+        ctx.fillStyle = 'white';
+        ctx.fillText('Sinter Strand', 60, 75);
+        
+        // ESP
+        ctx.fillStyle = '#88aacc';
+        ctx.fillRect(240, 50, 120, 110);
+        ctx.fillStyle = 'white';
+        ctx.fillText('ESP', 285, 40);
+        
+        // Stack
+        ctx.fillStyle = '#aa8866';
+        ctx.fillRect(460, 40, 40, 120);
+        ctx.fillStyle = 'white';
+        ctx.fillText('Stack', 470, 30);
+        
+        // Hopper under ESP
+        ctx.fillStyle = '#8b9a8b';
+        ctx.beginPath();
+        ctx.moveTo(250, 160);
+        ctx.lineTo(300, 190);
+        ctx.lineTo(350, 160);
+        ctx.fill();
+        ctx.fillStyle = '#ddd';
+        ctx.fillText('Dust hopper', 270, 195);
+        
+        // Arrows
+        ctx.beginPath();
+        ctx.moveTo(180, 120);
+        ctx.lineTo(235, 120);
+        ctx.strokeStyle = '#f4c542';
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(360, 100);
+        ctx.lineTo(455, 100);
+        ctx.stroke();
+        ctx.fillStyle = '#f4c542';
+        ctx.fillText('→', 215, 115);
+        ctx.fillText('→', 430, 95);
+        
+        // Recycled arrow from hopper to sinter strand (dashed)
+        ctx.beginPath();
+        ctx.moveTo(300, 190);
+        ctx.lineTo(300, 210);
+        ctx.lineTo(100, 210);
+        ctx.lineTo(100, 150);
+        ctx.setLineDash([5, 5]);
+        ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.fillStyle = '#88ffaa';
+        ctx.fillText('Recycled dust', 150, 205);
+    })();
+</script>
+
+    <!-- 6.4 Chemical Processing Plants -->
+    <h3>6.4 Chemical Processing Plants</h3>
+    <p>Many chemical processes produce toxic or valuable particulates that must be recovered or eliminated.</p>
+    <p><strong>Sulphuric acid plants:</strong><br>Catalytic conversion of SO₂ to SO₃ produces a mist of sulphuric acid (H₂SO₄). Wet electrostatic precipitators (WESPs) operate at 80–120 °C using polymer or lead electrodes to resist corrosion. They capture acid mist droplets as small as 0.1 µm, protecting both the environment and downstream equipment.</p>
+    <p><strong>Carbon black production:</strong><br>Carbon black (used in tyres and inks) is made by incomplete combustion of oil. The fine powder (20–50 nm primary particles) is highly valuable. ESPs recover >99.9% of the product, paying for themselves within months.</p>
+    <p><strong>Fertiliser plants (phosphate, ammonium nitrate):</strong><br>Dry ESPs remove phosphate rock dust and ammonium nitrate particles. Because these dusts can be explosive, the ESPs are designed with spark‑suppression systems and nitrogen purging.</p>
+    <div style="background: #1e2f2c; border-radius: 1rem; padding: 1rem; margin: 1rem 0; text-align: center;">
+    <p style="color: white; font-weight: bold;">🔬 Diagram – Wet electrostatic precipitator (WESP) for acid mist</p>
+    <canvas id="wetESPdiagram" width="500" height="350" style="width:100%; max-width:500px; height:auto; background: #1f3d38; border-radius: 16px; display: block; margin: 0 auto;"></canvas>
+    <p style="color: #ddd; font-size: 0.85rem;">[Vertical tubes with discharge wires, water spray nozzles, and collecting plates]</p>
+</div>
+
+<script>
+    (function drawWetESP() {
+        const canvas = document.getElementById('wetESPdiagram');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        const w = canvas.width = 500;
+        const h = canvas.height = 350;
+        
+        ctx.fillStyle = '#1f3d38';
+        ctx.fillRect(0, 0, w, h);
+        
+        // Outer shell
+        ctx.strokeStyle = '#88aacc';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(80, 40, 340, 250);
+        
+        // Three vertical tubes
+        const tubeX = [130, 230, 330];
+        tubeX.forEach(x => {
+            ctx.fillStyle = '#336666';
+            ctx.fillRect(x-15, 50, 30, 230);
+            // Discharge wire
+            ctx.beginPath();
+            ctx.moveTo(x, 55);
+            ctx.lineTo(x, 275);
+            ctx.strokeStyle = '#aaffdd';
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+            // Corona glow
+            ctx.beginPath();
+            ctx.arc(x, h/2, 18, 0, 2*Math.PI);
+            ctx.fillStyle = 'rgba(255,200,100,0.3)';
+            ctx.fill();
+        });
+        
+        // Water spray nozzles (top)
+        ctx.fillStyle = '#88ccff';
+        for (let i = 0; i < 6; i++) {
+            ctx.beginPath();
+            ctx.arc(100 + i*60, 55, 4, 0, 2*Math.PI);
+            ctx.fill();
+        }
+        ctx.fillStyle = '#aaffff';
+        ctx.fillText('Water spray nozzles', 180, 30);
+        
+        // Collecting plates (grounded) – drawn as sides of tubes
+        ctx.fillStyle = '#f4c542';
+        tubeX.forEach(x => {
+            ctx.fillRect(x-15, 50, 4, 230);
+            ctx.fillRect(x+11, 50, 4, 230);
+        });
+        
+        // Acid mist droplets (small dots)
+        for (let i = 0; i < 60; i++) {
+            ctx.fillStyle = '#88ddff';
+            ctx.beginPath();
+            ctx.arc(100 + Math.random()*340, 90 + Math.random()*190, 2, 0, 2*Math.PI);
+            ctx.fill();
+        }
+        
+        // Labels
+        ctx.fillStyle = '#ccc';
+        ctx.font = '10px monospace';
+        ctx.fillText('Discharge wires (−)', 200, 310);
+        ctx.fillStyle = '#f4c542';
+        ctx.fillText('Collecting plates (+)', 200, 330);
+    })();
+</script>
+
+    <!-- 6.5 Other Industrial Applications (table) -->
+    <h3>6.5 Other Industrial Applications</h3>
+    <table class="physics-table">
+        <thead>
+            <tr><th>Industry</th><th>Application</th><th>Typical Efficiency</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Wood and paper</td><td>Recovery of wood dust and lime dust in recovery boilers</td><td>99.0–99.8%</td></tr>
+            <tr><td>Asphalt and aggregate</td><td>Control of emissions from rotary dryers</td><td>98–99%</td></tr>
+            <tr><td>Municipal waste incineration</td><td>Removal of fly ash and heavy metals (after activated carbon injection)</td><td>99.5%</td></tr>
+            <tr><td>Glass manufacturing</td><td>Capture of batch dust (silica, soda ash)</td><td>99%</td></tr>
+        </tbody>
+    </table>
+
+    <!-- 6.6 Case Study -->
+    <h3>6.6 Case Study: The 1970 Clean Air Act (USA) and ESP Adoption</h3>
+    <div class="example-box">
+        <p><strong>Background:</strong><br>Before 1970, air pollution from coal power plants was largely unregulated. In many US cities, thick smog caused health emergencies.</p>
+        <p><strong>Action:</strong><br>The Clean Air Act of 1970 (amended 1977 and 1990) set strict limits on particulate emissions. Utilities were required to install “best available control technology” – which for large coal boilers meant electrostatic precipitators.</p>
+        <p><strong>Result:</strong><br>By 1985, over 90% of US coal‑fired capacity had ESPs. Particulate emissions from power plants dropped by more than 95%, despite a threefold increase in coal use. Visible smoke plumes disappeared, and airborne lead and arsenic fell dramatically.</p>
+        <p><strong>Legacy:</strong><br>The success of ESPs under the Clean Air Act proved that environmental regulation and industrial growth can coexist. Today, similar laws in China, India, and the EU have driven ESP upgrades, saving millions of lives.</p>
+    </div>
+    <div style="background: #1e2f2c; border-radius: 1rem; padding: 1rem; margin: 1rem 0; text-align: center;">
+    <p style="color: white; font-weight: bold;">📊 Graph – US power plant particulate emissions (1970–2000)</p>
+    <canvas id="emissionsGraph" width="600" height="300" style="width:100%; max-width:600px; height:auto; background: #001f1f; border-radius: 16px; display: block; margin: 0 auto;"></canvas>
+    <p style="color: #ddd; font-size: 0.85rem;">[Emissions dropped >95% despite coal use tripling; vertical line marks Clean Air Act of 1970]</p>
+</div>
+
+<script>
+    (function drawEmissions() {
+        const canvas = document.getElementById('emissionsGraph');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        const w = canvas.width = 600;
+        const h = canvas.height = 300;
+        
+        ctx.fillStyle = '#001f1f';
+        ctx.fillRect(0, 0, w, h);
+        
+        // Axes
+        ctx.beginPath();
+        ctx.moveTo(70, h-40);
+        ctx.lineTo(w-30, h-40);
+        ctx.moveTo(70, 30);
+        ctx.lineTo(70, h-40);
+        ctx.strokeStyle = '#ccc';
+        ctx.stroke();
+        
+        // Axis labels
+        ctx.fillStyle = '#ddd';
+        ctx.font = '10px monospace';
+        ctx.fillText('Year', w/2-15, h-15);
+        ctx.fillText('Emissions (kt/year)', 20, 50);
+        
+        // Data points: emissions decreasing over time, coal generation increasing
+        const years = [1970, 1980, 1990, 2000];
+        const emissions = [2500, 800, 400, 200]; // kt/year
+        const coalGen = [1000, 1500, 2200, 3000]; // arbitrary units for second line
+        
+        // Emissions line (red)
+        ctx.beginPath();
+        for (let i = 0; i < years.length; i++) {
+            let x = 70 + (years[i]-1970)/30 * (w-100);
+            let y = h-40 - (emissions[i]/2600)*(h-70);
+            if (i === 0) ctx.moveTo(x, y);
+            else ctx.lineTo(x, y);
+        }
+        ctx.strokeStyle = '#ff6666';
+        ctx.lineWidth = 3;
+        ctx.stroke();
+        
+        // Coal generation line (yellow)
+        ctx.beginPath();
+        for (let i = 0; i < years.length; i++) {
+            let x = 70 + (years[i]-1970)/30 * (w-100);
+            let y = h-40 - (coalGen[i]/3200)*(h-70);
+            if (i === 0) ctx.moveTo(x, y);
+            else ctx.lineTo(x, y);
+        }
+        ctx.strokeStyle = '#f4c542';
+        ctx.lineWidth = 3;
+        ctx.stroke();
+        
+        // Vertical line for Clean Air Act (1970)
+        ctx.beginPath();
+        ctx.moveTo(70, 30);
+        ctx.lineTo(70, h-40);
+        ctx.strokeStyle = '#ffffff';
+        ctx.setLineDash([6, 6]);
+        ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.fillStyle = '#ffffff';
+        ctx.fillText('Clean Air Act 1970', 72, 50);
+        
+        // Legend
+        ctx.fillStyle = '#ff6666';
+        ctx.fillRect(w-100, 45, 12, 12);
+        ctx.fillStyle = '#ddd';
+        ctx.fillText('Particulate emissions', w-85, 55);
+        ctx.fillStyle = '#f4c542';
+        ctx.fillRect(w-100, 65, 12, 12);
+        ctx.fillStyle = '#ddd';
+        ctx.fillText('Coal generation', w-85, 75);
+        
+        // Annotate drop
+        ctx.fillStyle = '#ffaa88';
+        ctx.fillText('95% reduction', 200, h-40-180);
+    })();
+</script>
+
+    <!-- 6.7 Summary -->
+    <h3>6.7 Summary of Global Impact</h3>
+    <ul>
+        <li><strong>Annual dust captured:</strong> ESPs worldwide remove an estimated <strong>500 million tonnes</strong> of particulate matter each year.</li>
+        <li><strong>Health benefits:</strong> Preventing fine particle exposure reduces asthma, lung cancer, and heart disease. The WHO estimates that air pollution control devices (including ESPs) save over <strong>2 million lives annually</strong> that would otherwise be lost to particulate pollution.</li>
+        <li><strong>Resource recovery:</strong> Recycled fly ash is used in concrete, reducing the need for cement. Recovered zinc and carbon black have significant economic value.</li>
+        <li><strong>Climate co‑benefits:</strong> ESPs do not remove CO₂, but they enable cleaner biomass and waste co‑firing by capturing corrosive ash that would otherwise damage carbon capture equipment.</li>
+    </ul>
+
+    <p><em>End of Section 6 – Real‑World Applications of Electrostatic Precipitators</em></p>
+</div>
+
+        <!-- Societal impact -->
+        <div id="impact" class="card tab-content">
+            <h2>🌍 Societal Impact: Benefits, Challenges & Future</h2>
+            <div class="grid-2">
+                <div class="info-box">
+                    <h3>✅ Benefits</h3>
+                    <ul style="margin-left: 1.2rem;">
+                        <li>✔️ Dramatically reduces air pollution (smog, fine dust).</li>
+                        <li>✔️ Prevents lung diseases like silicosis, asthma, and cancer.</li>
+                        <li>✔️ Enables industries to comply with laws (e.g., EPA, WHO).</li>
+                        <li>✔️ No chemical additives — only electricity.</li>
+                    </ul>
+                </div>
+                <div class="info-box">
+                    <h3>⚠️ Challenges</h3>
+                    <ul style="margin-left: 1.2rem;">
+                        <li>❌ High initial capital cost (millions of dollars for large units).</li>
+                        <li>❌ Less effective for very fine particles (< 0.1 µm) or high-resistivity dust.</li>
+                        <li>❌ Regular maintenance (cleaning plates, rapping).</li>
+                        <li>❌ Ozone production from corona discharge — indoor use requires care.</li>
+                    </ul>
+                </div>
+                <div class="info-box">
+                    <h3>♻️ Sustainability & ethics</h3>
+                    <p>ESPs support green transition by reducing emissions from existing infrastructure. However, they don't remove CO₂. Future designs aim to combine ESP with carbon capture. Ethically, industries must invest in pollution control even if it reduces short-term profits.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive HTML5 simulation: particle collector -->
+        <div id="simulation" class="card tab-content">
+            <h2>🧪 Interactive Simulation: See Particles Get Collected!</h2>
+            <p>Click or tap inside the canvas to add dust particles. Watch how the <strong>electric field</strong> pulls them toward the positive collector plates. (Conceptual demo)</p>
+            <div class="simulation">
+                <canvas id="espCanvas" width="700" height="350" style="width:100%; height:auto; max-width:700px; aspect-ratio:700/350"></canvas>
+                <div style="display: flex; justify-content: center; gap: 1rem; margin-top: 1rem;">
+                    <button class="btn" id="addParticleBtn">➕ Add Dust Particle</button>
+                    <button class="btn" id="resetSimBtn">🔄 Reset Simulator</button>
+                </div>
+                <p style="text-align: center; margin-top: 1rem; font-size: 0.85rem;">🔵 Blue circles = negatively charged dust particles → they drift toward <span style="color:#f4c542;">yellow collector plates</span> (positive). The electric field direction is from discharge wire to plates.</p>
+            </div>
+            <div class="info-box" style="margin-top: 1rem;">
+                <h3>📺 How the simulation works</h3>
+                <p>This sim shows a simplified ESP cross‑section. The central electrode (negative) creates an electric field pointing toward the two side plates (positive). Particles gain negative charge and experience a force F = q·E, accelerating them sideways until they hit a plate — illustrating Coulomb attraction and field lines.</p>
+            </div>
+        </div>
+
+        <!-- References -->
+        <div id="references" class="card tab-content ">
+            <h2>📚 References & Sources</h2>
+            <ul class="reference-list">
+                <li>1. U.S. Environmental Protection Agency (EPA) – “Electrostatic Precipitators” (2023).</li>
+                <li>2. Serway, R. A., & Jewett, J. W. (2018). <em>Physics for Scientists and Engineers</em>, Cengage.</li>
+                <li>3. Young, H. D., & Freedman, R. A. (2020). <em>University Physics</em>, Pearson.</li>
+                <li>4. Parker, K. (2019). “Electrostatic Precipitation: History and Modern Applications”, Journal of Air Quality.</li>
+                <li>5. HowStuffWorks – “How Electrostatic Precipitators Work” (accessed 2026).</li>
+                <li>6. Cottrell, F. G. (1907). Patent US895729 – “Apparatus for precipitating suspended particles from gases”.</li>
+            </ul>
+            <p><em>All diagrams, content, and interactive simulation created for Group 2 project – Tamale Islamic Science SHS.</em></p>
+        </div>
+    </div>
+<!-- Table of Contents Section -->
+<div id="contents" class="card tab-content">
+    <h2>📑 Table of Contents</h2>
+    <p style="margin-bottom: 1.5rem;">Below is the structure of this project report. Click on any section to jump directly to it.</p>
+    
+    <table style="width: 100%; border-collapse: collapse; text-align: left;">
+        <thead>
+            <tr style="border-bottom: 2px solid #f4c542;">
+                <th style="padding: 10px 5px;">Section</th>
+                <th style="padding: 10px 5px;">Page (simulated)</th>
+                <th style="padding: 10px 5px;">Jump to</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr style="border-bottom: 1px solid #ddd;">
+                <td style="padding: 8px 5px;">1. Cover Page</td>
+                <td style="padding: 8px 5px;">1</td>
+                <td style="padding: 8px 5px;"><button class="toc-jump" data-target="coverPage">📄 Go to Cover</button></td>
+            </tr>
+            <tr style="border-bottom: 1px solid #ddd;">
+                <td style="padding: 8px 5px;">2. Table of Contents</td>
+                <td style="padding: 8px 5px;">2</td>
+                <td style="padding: 8px 5px;"><em>You are here</em></td>
+            </tr>
+            <tr style="border-bottom: 1px solid #ddd;">
+                <td style="padding: 8px 5px;">3. Introduction</td>
+                <td style="padding: 8px 5px;">3-4</td>
+                <td style="padding: 8px 5px;"><button class="toc-jump" data-target="overview">🔍 Go to Introduction</button></td>
+            </tr>
+            <tr style="border-bottom: 1px solid #ddd;">
+    <td style="padding: 8px 5px;">3. Technology Overview (ESP Architecture & Operation)</td>
+    <td style="padding: 8px 5px;">4-6</td>
+    <td style="padding: 8px 5px;"><button class="toc-jump" data-target="tech-overview">⚙️ Go to Tech Overview</button></td>
+</tr>
+            <tr style="border-bottom: 1px solid #ddd;">
+                <td style="padding: 8px 5px;">4. Physics Principles (Coulomb, Field Strength, Corona)</td>
+                <td style="padding: 8px 5px;">6-7</td>
+                <td style="padding: 8px 5px;"><button class="toc-jump" data-target="physics">⚛️ Go to Physics</button></td>
+            </tr>
+            <tr style="border-bottom: 1px solid #ddd;">
+                <td style="padding: 8px 5px;">5. Real‑World Applications</td>
+                <td style="padding: 8px 5px;">8-9</td>
+                <td style="padding: 8px 5px;"><button class="toc-jump" data-target="applications">🏭 Go to Uses</button></td>
+            </tr>
+            <tr style="border-bottom: 1px solid #ddd;">
+                <td style="padding: 8px 5px;">6. Societal Impact (Benefits, Challenges, Ethics)</td>
+                <td style="padding: 8px 5px;">10-11</td>
+                <td style="padding: 8px 5px;"><button class="toc-jump" data-target="impact">🌍 Go to Impact</button></td>
+            </tr>
+            <tr style="border-bottom: 1px solid #ddd;">
+                <td style="padding: 8px 5px;">7. Interactive Simulation</td>
+                <td style="padding: 8px 5px;">12</td>
+                <td style="padding: 8px 5px;"><button class="toc-jump" data-target="simulation">🧪 Go to Simulation</button></td>
+            </tr>
+            <tr style="border-bottom: 1px solid #ddd;">
+                <td style="padding: 8px 5px;">8. References / Sources</td>
+                <td style="padding: 8px 5px;">13</td>
+                <td style="padding: 8px 5px;"><button class="toc-jump" data-target="references">📚 Go to Sources</button></td>
+            </tr>
+            <tr>
+                <td style="padding: 8px 5px;">9. Dashboard & Navigation</td>
+                <td style="padding: 8px 5px;">(Interactive)</td>
+                <td style="padding: 8px 5px;"><button class="toc-jump" data-target="dashboard">📊 Go to Dashboard</button></td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <p style="margin-top: 1.5rem; font-size: 0.9rem; background: #eef3f1; padding: 0.5rem; border-radius: 12px; text-align: center;">
+        ⚡ <strong>Note:</strong> Page numbers are simulated for the written report. In this web app, use the buttons above to jump directly to each section.
+    </p>
+</div>
+    </div>
+    <footer>
+        <p>🏆 Group 2 Project: Electrostatic Precipitators | Physics, Year 2 | Semester I 2026</p>
+        <p>Demonstrating Coulomb's law, electric fields & real-world impact — for cleaner air and a sustainable future.</p>
+    </footer>
+
+    <script>
+        (function(){
+            const canvas = document.getElementById('espCanvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Set actual pixel dimensions (CSS maintains ratio, but we need proper resolution)
+            function resizeCanvas() {
+                const container = canvas.parentElement;
+                const width = Math.min(700, container.clientWidth);
+                canvas.width = 700;
+                canvas.height = 350;
+                drawStatic();
+                drawParticles();
+            }
+            
+            // Particles array
+            let particles = [];
+            
+            // Define ESP geometry
+            const leftPlateX = 70;
+            const rightPlateX = 630;
+            const plateWidth = 16;
+            const topY = 60;
+            const bottomY = 290;
+            const dischargeX = 350;   // central wire
+            const dischargeY1 = topY;
+            const dischargeY2 = bottomY;
+            
+            // Electric field direction: from center toward plates. We'll apply force.
+            // Simplified: each particle experiences acceleration toward the nearest plate (x direction)
+            // with magnitude proportional to field strength (assume uniform field region).
+            function drawStatic() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                // draw background (gas flow area)
+                ctx.fillStyle = "#1f3d38";
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                // collector plates (positive)
+                ctx.fillStyle = "#f4c542";
+                ctx.shadowBlur = 0;
+                // left plate
+                ctx.fillRect(leftPlateX - plateWidth, topY, plateWidth, bottomY - topY);
+                // right plate
+                ctx.fillRect(rightPlateX, topY, plateWidth, bottomY - topY);
+                // discharge electrode (negative, central wire)
+                ctx.beginPath();
+                ctx.moveTo(dischargeX, dischargeY1);
+                ctx.lineTo(dischargeX, dischargeY2);
+                ctx.lineWidth = 4;
+                ctx.strokeStyle = "#aaffdd";
+                ctx.stroke();
+                ctx.fillStyle = "#b0f0e0";
+                ctx.beginPath();
+                ctx.arc(dischargeX, (dischargeY1+dischargeY2)/2, 6, 0, 2*Math.PI);
+                ctx.fill();
+                // field lines (suggestive dashed lines)
+                ctx.beginPath();
+                ctx.setLineDash([5, 8]);
+                ctx.strokeStyle = "#cfffea";
+                ctx.lineWidth = 1;
+                for(let y = topY+30; y < bottomY; y+=40){
+                    ctx.beginPath();
+                    ctx.moveTo(dischargeX, y);
+                    ctx.lineTo(leftPlateX - plateWidth + 5, y);
+                    ctx.stroke();
+                    ctx.beginPath();
+                    ctx.moveTo(dischargeX, y);
+                    ctx.lineTo(rightPlateX + 5, y);
+                    ctx.stroke();
+                }
+                ctx.setLineDash([]);
+                // labels
+                ctx.font = "bold 14px 'Segoe UI'";
+                ctx.fillStyle = "#f4c542";
+                ctx.fillText("+ COLLECTOR PLATE", leftPlateX-50, topY-8);
+                ctx.fillText("+ COLLECTOR PLATE", rightPlateX+10, topY-8);
+                ctx.fillStyle = "#b0ffec";
+                ctx.fillText("⚡ DISCHARGE ELECTRODE (-)", dischargeX-60, dischargeY1-10);
+                ctx.fillStyle = "#dddddd";
+                ctx.font = "12px monospace";
+                ctx.fillText("Dusty gas flow →", 20, 40);
+                ctx.fillText("Clean gas out →", 580, 40);
+            }
+            
+            function drawParticles() {
+                for(let p of particles) {
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.radius, 0, Math.PI*2);
+                    ctx.fillStyle = "#5dc9ff";
+                    ctx.shadowBlur = 6;
+                    ctx.fill();
+                    ctx.fillStyle = "#ffffff";
+                    ctx.font = "10px monospace";
+                    ctx.fillText("-", p.x-2, p.y+3);
+                }
+                ctx.shadowBlur = 0;
+            }
+            
+            function updateSimulation() {
+                // apply electric force: each particle drifts toward nearest plate (x direction)
+                // also small random brownian motion
+                for(let i=0; i<particles.length; i++) {
+                    let p = particles[i];
+                    // distance to left plate edge (right side of left plate) and right plate edge (left side)
+                    const leftEdgeX = leftPlateX - plateWidth; // left plate rightmost x = leftPlateX
+                    const rightEdgeX = rightPlateX;          // right plate leftmost x = rightPlateX
+                    let forceX = 0;
+                    // electric field magnitude roughly uniform: pulls toward plates. if particle is left of center -> left plate, else right.
+                    if(p.x < dischargeX) {
+                        // attraction to left plate
+                        forceX = -0.8;  // leftward
+                        // additional effect: stronger when close
+                        let distToLeft = Math.abs(p.x - leftEdgeX);
+                        if(distToLeft < 30) forceX *= 1.5;
+                    } else {
+                        forceX = 0.8;   // rightward
+                        let distToRight = Math.abs(p.x - rightEdgeX);
+                        if(distToRight < 30) forceX *= 1.5;
+                    }
+                    p.vx += forceX * 0.2;
+                    p.vy += (Math.random() - 0.5) * 0.2; // small thermal/flow jitter
+                    // damping
+                    p.vx *= 0.98;
+                    p.vy *= 0.98;
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    // boundaries (top/bottom)
+                    if(p.y < topY+5) { p.y = topY+5; p.vy *= -0.5; }
+                    if(p.y > bottomY-5) { p.y = bottomY-5; p.vy *= -0.5; }
+                    
+                    // COLLECTION: if particle touches left or right plate area
+                    let collected = false;
+                    // left plate region
+                    if(p.x + p.radius >= leftPlateX - plateWidth && p.x - p.radius <= leftPlateX && p.y > topY && p.y < bottomY) {
+                        collected = true;
+                    }
+                    // right plate region
+                    if(p.x + p.radius >= rightPlateX && p.x - p.radius <= rightPlateX + plateWidth && p.y > topY && p.y < bottomY) {
+                        collected = true;
+                    }
+                    if(collected) {
+                        particles.splice(i,1);
+                        i--;
+                        continue;
+                    }
+                    // prevent escaping left/right
+                    if(p.x - p.radius < 20) { p.x = 20 + p.radius; p.vx *= -0.3; }
+                    if(p.x + p.radius > canvas.width-20) { p.x = canvas.width-20 - p.radius; p.vx *= -0.3; }
+                }
+                drawStatic();
+                drawParticles();
+                requestAnimationFrame(updateSimulation);
+            }
+            
+            function addParticle() {
+                // spawn near inlet (left side) with random y
+                let yPos = topY + 20 + Math.random() * (bottomY - topY - 40);
+                particles.push({
+                    x: 45,
+                    y: yPos,
+                    radius: 6,
+                    vx: (Math.random() - 0.5)*0.2 + 0.3,
+                    vy: (Math.random() - 0.5)*0.4
+                });
+            }
+            
+            function resetSimulation() {
+                particles = [];
+                drawStatic();
+                drawParticles();
+            }
+            
+            // event listeners
+            document.getElementById('addParticleBtn').addEventListener('click', addParticle);
+            document.getElementById('resetSimBtn').addEventListener('click', resetSimulation);
+            canvas.addEventListener('click', (e) => {
+                const rect = canvas.getBoundingClientRect();
+                const scaleX = canvas.width / rect.width;
+                const scaleY = canvas.height / rect.height;
+                let mouseX = (e.clientX - rect.left) * scaleX;
+                let mouseY = (e.clientY - rect.top) * scaleY;
+                if(mouseX > 20 && mouseX < canvas.width-20 && mouseY > topY && mouseY < bottomY) {
+                    particles.push({
+                        x: mouseX,
+                        y: mouseY,
+                        radius: 6,
+                        vx: (Math.random()-0.5)*0.3,
+                        vy: (Math.random()-0.5)*0.3
+                    });
+                } else {
+                    addParticle(); // fallback
+                }
+            });
+            
+            resizeCanvas();
+            window.addEventListener('resize', () => {
+                drawStatic();
+                drawParticles();
+            });
+            // start engine
+            updateSimulation();
+        })();
+        
+            // Helper function to switch tabs (used by dashboard cards)
+function switchToTab(tabId) {
+    const targetButton = document.querySelector(`.tab-btn[data-tab="${tabId}"]`);
+    if (targetButton) {
+        targetButton.click();
+    }
+}
+        
+        // ----- TAB SWITCHING LOGIC -----
+const tabBtns = document.querySelectorAll('.tab-btn');
+const tabContents = document.querySelectorAll('.tab-content');
+
+tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        const tabId = btn.getAttribute('data-tab');
+       
+        
+        // Remove active class from all buttons and contents
+        tabBtns.forEach(b => b.classList.remove('active'));
+        tabContents.forEach(content => content.classList.remove('active'));
+        
+        // Add active class to current button and corresponding content
+        btn.classList.add('active');
+        const activeContent = document.getElementById(tabId);
+        if (activeContent) activeContent.classList.add('active');
+        
+        // ----- OPTIONAL: Force canvas redraw when switching to Interactive tab -----
+        if (tabId === 'simulation') {
+            // These functions are defined inside the simulation code
+            if (typeof drawStatic === 'function' && typeof drawParticles === 'function') {
+                drawStatic();
+                drawParticles();
+            }
+        }
+        // ---------------------------------------------------------------------
+    });
+});
+        
+     // Show main app only after cover page is dismissed, and go to Table of Contents
+const cover = document.getElementById('coverPage');
+const enterBtn = document.getElementById('enterBtn');
+
+enterBtn.addEventListener('click', () => {
+    cover.classList.add('hide-cover');
+    setTimeout(() => {
+        cover.style.display = 'none';
+        
+        // After cover is hidden, switch to the Table of Contents tab
+        const contentsButton = document.querySelector('.tab-btn[data-tab="contents"]');
+        if (contentsButton) {
+            contentsButton.click();
+        }
+    }, 500);
+});
+        // Button to return to cover page
+const coverBtn = document.getElementById('coverBtn');
+coverBtn.addEventListener('click', () => {
+    // Remove the hide class and make cover visible again
+    cover.classList.remove('hide-cover');
+    cover.style.display = 'flex';   // ensure it's displayed
+    // Also ensure any inline style from previous hide is cleared
+    cover.style.opacity = '1';
+    cover.style.visibility = 'visible';
+    // Optional: scroll to top
+    window.scrollTo(0, 0);
+});
+        // TOC jump buttons
+document.querySelectorAll('.toc-jump').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const target = btn.getAttribute('data-target');
+        if (target === 'coverPage') {
+            // Show cover page
+            cover.classList.remove('hide-cover');
+            cover.style.display = 'flex';
+            cover.style.opacity = '1';
+            cover.style.visibility = 'visible';
+        } else {
+            // Switch to the corresponding tab
+            const targetBtn = document.querySelector(`.tab-btn[data-tab="${target}"]`);
+            if (targetBtn) targetBtn.click();
+        }
+    });
+});
+    </script>
+</body>
+</html>
